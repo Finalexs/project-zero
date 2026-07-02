@@ -8,16 +8,36 @@ export default function Home() {
   {
     name: "Researcher",
     role: "Finds information and market insights",
-    status: "Ready",
+    status: "Working",
   },
   {
     name: "Writer",
     role: "Creates content, emails and documentation",
-    status: "Ready",
+    status: "Drafting",
   },
   {
     name: "QA",
     role: "Tests everything before release",
+    status: "Waiting",
+  },
+  {
+    name: "Designer",
+    role: "Creates visuals, layouts and brand assets",
+    status: "Ready",
+  },
+  {
+    name: "Developer",
+    role: "Builds software, tools and automations",
+    status: "Ready",
+  },
+  {
+    name: "SEO Specialist",
+    role: "Finds keywords and improves search traffic",
+    status: "Ready",
+  },
+  {
+    name: "Sales Rep",
+    role: "Finds leads and drafts outreach messages",
     status: "Ready",
   },
 ];
@@ -67,7 +87,7 @@ Not another workflow.
           </button>
         </div>
 
-        <div className="mt-16 grid w-full gap-4 sm:grid-cols-4">
+        <div className="mt-16 grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-4">
          {employees.map((employee) => (
             <div
               key={employee.name}
