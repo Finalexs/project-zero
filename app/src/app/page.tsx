@@ -241,6 +241,23 @@ Not another workflow.
     No spam. Just progress updates and beta access.
   </p>
 </div>
+<footer className="mt-24 w-full border-t border-white/10 py-10 text-center text-sm text-white/40">
+  <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+    <p>© 2026 Project Zero. Built to help people run AI companies.</p>
+
+    <div className="flex gap-6">
+      <a href="#employees" className="hover:text-white">
+        Employees
+      </a>
+      <a href="#dashboard" className="hover:text-white">
+        Dashboard
+      </a>
+      <a href="#pricing" className="hover:text-white">
+        Pricing
+      </a>
+    </div>
+  </div>
+</footer>
       </section>
     </main>
   );
