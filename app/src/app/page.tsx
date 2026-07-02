@@ -93,7 +93,21 @@ Not another workflow.
               key={employee.name}
               className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-left"
             >
-              <div className="mb-3 h-3 w-3 rounded-full bg-green-400" />
+              <div className="mb-3 flex items-center justify-between">
+  <div
+    className={`h-3 w-3 rounded-full ${
+      employee.status === "Working"
+        ? "bg-green-400"
+        : employee.status === "Drafting"
+          ? "bg-yellow-400"
+          : employee.status === "Waiting"
+            ? "bg-white/30"
+            : "bg-blue-400"
+    }`}
+  />
+
+  <span className="text-xs text-white/40">{employee.status}</span>
+</div>
               <h3 className="font-semibold">{employee.name}</h3>
               <p className="mt-2 text-sm text-white/50">
                 {employee.role}
