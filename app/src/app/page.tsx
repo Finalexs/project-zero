@@ -79,12 +79,18 @@ Not another workflow.
         </p>
 
         <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-          <button className="rounded-full bg-white px-8 py-3 font-semibold text-black">
-            Start building
-          </button>
-          <button className="rounded-full border border-white/15 px-8 py-3 font-semibold text-white">
-            View employees
-          </button>
+          <a
+  href="#waitlist"
+  className="rounded-full bg-white px-8 py-3 font-semibold text-black"
+>
+  Start building
+</a>
+          <a
+  href="#employees"
+  className="rounded-full border border-white/15 px-8 py-3 font-semibold text-white"
+>
+  View employees
+</a>
         </div>
 <div className="mt-10 w-full max-w-2xl rounded-3xl border border-white/10 bg-white/[0.03] p-4 text-left backdrop-blur-md">
   <p className="mb-3 text-sm text-white/40">Give your AI company a goal</p>
@@ -262,7 +268,7 @@ Not another workflow.
     <p className="mt-1 text-sm text-white/40">per month</p>
   </div>
 </div>
-<div className="mt-24 w-full rounded-3xl border border-blue-400/20 bg-blue-400/[0.04] p-8 text-center">
+<div id="waitlist" className="mt-24 w-full rounded-3xl border border-blue-400/20 bg-blue-400/[0.04] p-8 text-center">
   <p className="text-sm text-blue-300/70">Private beta</p>
 
   <h2 className="mt-2 text-4xl font-bold">
