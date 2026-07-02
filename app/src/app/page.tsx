@@ -214,6 +214,33 @@ Not another workflow.
     <p className="mt-1 text-sm text-white/40">per month</p>
   </div>
 </div>
+<div className="mt-24 w-full rounded-3xl border border-blue-400/20 bg-blue-400/[0.04] p-8 text-center">
+  <p className="text-sm text-blue-300/70">Private beta</p>
+
+  <h2 className="mt-2 text-4xl font-bold">
+    Be first to build your AI company.
+  </h2>
+
+  <p className="mx-auto mt-4 max-w-2xl text-white/60">
+    Join the waitlist and get early access when Project Zero is ready for its first testers.
+  </p>
+
+  <div className="mx-auto mt-8 flex max-w-xl flex-col gap-3 sm:flex-row">
+    <input
+      type="email"
+      placeholder="Enter your email"
+      className="flex-1 rounded-full border border-white/10 bg-black/40 px-5 py-3 text-white outline-none placeholder:text-white/30"
+    />
+
+    <button className="rounded-full bg-white px-6 py-3 font-semibold text-black">
+      Join waitlist
+    </button>
+  </div>
+
+  <p className="mt-4 text-xs text-white/30">
+    No spam. Just progress updates and beta access.
+  </p>
+</div>
       </section>
     </main>
   );
