@@ -86,7 +86,21 @@ Not another workflow.
             View employees
           </button>
         </div>
+<div className="mt-10 w-full max-w-2xl rounded-3xl border border-white/10 bg-white/[0.03] p-4 text-left backdrop-blur-md">
+  <p className="mb-3 text-sm text-white/40">Give your AI company a goal</p>
 
+  <div className="flex flex-col gap-3 sm:flex-row">
+    <input
+      type="text"
+      placeholder="Example: Create 7 LinkedIn posts for my business..."
+      className="flex-1 rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none placeholder:text-white/30"
+    />
+
+    <button className="rounded-2xl bg-white px-5 py-3 font-semibold text-black">
+      Delegate
+    </button>
+  </div>
+</div>
         <div className="mt-16 grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-4">
          {employees.map((employee) => (
             <div
