@@ -23,7 +23,27 @@ export default function Home() {
 ];
   return (
     <main className="min-h-screen overflow-hidden bg-black text-white">
-      <section className="mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-6 text-center">
+      <section className="relative mx-auto flex min-h-screen max-w-6xl flex-col items-center px-6 pb-24 pt-36 text-center">
+    <div className="pointer-events-none absolute left-1/2 top-24 h-96 w-96 -translate-x-1/2 rounded-full bg-blue-500/20 blur-3xl" />
+  <nav className="absolute top-6 flex w-full items-center justify-between rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 text-sm backdrop-blur-md">
+  <div className="font-semibold">Project Zero</div>
+
+  <div className="hidden gap-6 text-white/60 md:flex">
+    <a href="#employees" className="hover:text-white">
+      Employees
+    </a>
+    <a href="#dashboard" className="hover:text-white">
+      Dashboard
+    </a>
+    <a href="#pricing" className="hover:text-white">
+      Pricing
+    </a>
+  </div>
+
+  <button className="rounded-full bg-white px-4 py-2 font-semibold text-black">
+    Join waitlist
+  </button>
+</nav>      
         <div className="mb-6 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/70">
           Project Zero · AI Company OS
         </div>
@@ -61,7 +81,7 @@ Not another workflow.
             </div>
           ))}
         </div>
-        <div className="mt-24 w-full">
+        <div id="employees" className="mt-24 w-full">
   <h2 className="mb-10 text-center text-4xl font-bold">
     Your AI Company
   </h2>
@@ -88,7 +108,7 @@ Not another workflow.
       </p>
     </div>
   </div>
- <div className="mt-24 w-full rounded-3xl border border-white/10 bg-white/[0.03] p-8 text-left shadow-2xl">
+ <div id="dashboard" className="mt-24 w-full rounded-3xl border border-white/10 bg-white/[0.03] p-8 text-left shadow-2xl">
   <div className="mb-8 flex items-center justify-between">
     <div>
       <p className="text-sm text-white/40">Live Company Dashboard</p>
@@ -142,6 +162,20 @@ Not another workflow.
     </div>
   </div>
 </div> 
+</div>
+<div id="pricing" className="mt-24 w-full rounded-3xl border border-white/10 bg-white/[0.03] p-8 text-center">
+  <p className="text-sm text-white/40">Pricing</p>
+  <h2 className="mt-2 text-4xl font-bold">Start with your first AI team.</h2>
+  <p className="mx-auto mt-4 max-w-2xl text-white/60">
+    Project Zero will begin with a simple subscription that gives small businesses access to a ready-made AI company.
+  </p>
+
+  <div className="mx-auto mt-8 max-w-sm rounded-2xl border border-white/10 bg-black/40 p-6">
+    <h3 className="text-2xl font-bold">Starter Company</h3>
+    <p className="mt-2 text-white/50">Project Manager, Researcher, Writer, and QA included.</p>
+    <div className="mt-6 text-4xl font-bold">€29</div>
+    <p className="mt-1 text-sm text-white/40">per month</p>
+  </div>
 </div>
       </section>
     </main>
