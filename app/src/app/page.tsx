@@ -60,9 +60,12 @@ export default function Home() {
     </a>
   </div>
 
-  <button className="rounded-full bg-white px-4 py-2 font-semibold text-black">
-    Join waitlist
-  </button>
+<a
+  href="#waitlist"
+  className="rounded-full bg-white px-4 py-2 font-semibold text-black"
+>
+  Join waitlist
+</a>  
 </nav>      
         <div className="mb-6 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/70">
           Project Zero · AI Company OS
@@ -422,21 +425,22 @@ Not another workflow.
     No spam. Just progress updates and beta access.
   </p>
 </div>
-<footer className="mt-24 w-full border-t border-white/10 py-10 text-center text-sm text-white/40">
-  <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-    <p>© 2026 Project Zero. Built to help people run AI companies.</p>
+<footer className="mt-24 flex w-full flex-col items-center justify-between gap-4 border-t border-white/10 py-10 text-sm text-white/40 md:flex-row">
+  <div>
+    <p className="font-semibold text-white">Project Zero</p>
+    <p className="mt-1">Build an AI company. Not another workflow.</p>
+  </div>
 
-    <div className="flex gap-6">
-      <a href="#employees" className="hover:text-white">
-        Employees
-      </a>
-      <a href="#dashboard" className="hover:text-white">
-        Dashboard
-      </a>
-      <a href="#pricing" className="hover:text-white">
-        Pricing
-      </a>
-    </div>
+  <div className="flex gap-6">
+    <a href="#employees" className="hover:text-white">
+      Employees
+    </a>
+    <a href="#dashboard" className="hover:text-white">
+      Dashboard
+    </a>
+    <a href="#pricing" className="hover:text-white">
+      Pricing
+    </a>
   </div>
 </footer>
       </section>
