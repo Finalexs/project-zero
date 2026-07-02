@@ -245,7 +245,37 @@ Not another workflow.
     </div>
   </div>
 </div> 
-</div><div className="mt-24 w-full">
+
+
+<div className="mt-24 w-full">
+  <p className="text-sm text-white/40">Built for small teams</p>
+  <h2 className="mt-2 text-4xl font-bold">
+    Replace scattered AI tools with one AI company.
+  </h2>
+
+  <div className="mt-10 grid gap-4 md:grid-cols-3">
+    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 text-left">
+      <p className="text-3xl font-bold">24/7</p>
+      <p className="mt-2 text-sm text-white/50">
+        AI employees can keep working even when your team is offline.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 text-left">
+      <p className="text-3xl font-bold">1 place</p>
+      <p className="mt-2 text-sm text-white/50">
+        Tasks, employees, memory and results live inside one dashboard.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 text-left">
+      <p className="text-3xl font-bold">No workflows</p>
+      <p className="mt-2 text-sm text-white/50">
+        Give goals in plain language instead of building complicated automations.
+      </p>
+    </div>
+  </div>
+</div></div><div className="mt-24 w-full">
   <p className="text-sm text-white/40">How it works</p>
   <h2 className="mt-2 text-4xl font-bold">From idea to finished work.</h2>
 
