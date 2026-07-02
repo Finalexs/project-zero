@@ -162,6 +162,43 @@ Not another workflow.
     </div>
   </div>
 </div> 
+</div><div className="mt-24 w-full">
+  <p className="text-sm text-white/40">How it works</p>
+  <h2 className="mt-2 text-4xl font-bold">From idea to finished work.</h2>
+
+  <div className="mt-10 grid gap-4 md:grid-cols-4">
+    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-left">
+      <div className="mb-4 text-3xl font-bold text-white/30">01</div>
+      <h3 className="font-semibold">Hire employees</h3>
+      <p className="mt-2 text-sm text-white/50">
+        Start with a ready-made AI team for your business.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-left">
+      <div className="mb-4 text-3xl font-bold text-white/30">02</div>
+      <h3 className="font-semibold">Give a goal</h3>
+      <p className="mt-2 text-sm text-white/50">
+        Tell your company what you want done in normal language.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-left">
+      <div className="mb-4 text-3xl font-bold text-white/30">03</div>
+      <h3 className="font-semibold">Employees collaborate</h3>
+      <p className="mt-2 text-sm text-white/50">
+        Researcher, Writer, QA and CEO hand work between each other.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-left">
+      <div className="mb-4 text-3xl font-bold text-white/30">04</div>
+      <h3 className="font-semibold">Review the result</h3>
+      <p className="mt-2 text-sm text-white/50">
+        You stay in control before anything is delivered or published.
+      </p>
+    </div>
+  </div>
 </div>
 <div id="pricing" className="mt-24 w-full rounded-3xl border border-white/10 bg-white/[0.03] p-8 text-center">
   <p className="text-sm text-white/40">Pricing</p>
