@@ -275,7 +275,9 @@ Not another workflow.
       </p>
     </div>
   </div>
-</div></div><div className="mt-24 w-full">
+</div>
+</div>
+<div className="mt-24 w-full">
   <p className="text-sm text-white/40">How it works</p>
   <h2 className="mt-2 text-4xl font-bold">From idea to finished work.</h2>
 
@@ -350,6 +352,32 @@ Not another workflow.
   </div>
 </div>
 
+
+<div className="mt-24 w-full rounded-3xl border border-white/10 bg-white/[0.03] p-8 text-left">
+  <p className="text-sm text-blue-300/70">The vision</p>
+
+  <div className="mt-4 grid gap-8 md:grid-cols-2">
+    <div>
+      <h2 className="text-4xl font-bold">
+        AI employees should not just answer. They should do the work.
+      </h2>
+    </div>
+
+    <div className="space-y-4 text-white/60">
+      <p>
+        Today, Project Zero helps businesses organize AI employees, tasks, memory and results in one place.
+      </p>
+
+      <p>
+        The next step is giving employees safe tool access, so they can edit projects, prepare files, manage workflows and complete real business tasks.
+      </p>
+
+      <p className="text-white">
+        The goal is simple: build an AI company that can actually operate.
+      </p>
+    </div>
+  </div>
+</div>
 <div id="pricing" className="mt-24 w-full rounded-3xl border border-white/10 bg-white/[0.03] p-8 text-center">
   <p className="text-sm text-white/40">Pricing</p>
   <h2 className="mt-2 text-4xl font-bold">Start with your first AI team.</h2>
