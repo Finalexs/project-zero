@@ -106,6 +106,20 @@ Not another workflow.
       Delegate
     </button>
   </div>
+    <div className="mt-4 flex flex-wrap gap-2">
+    <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50">
+      Create social media posts
+    </span>
+    <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50">
+      Research competitors
+    </span>
+    <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50">
+      Write cold emails
+    </span>
+    <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50">
+      Build landing page copy
+    </span>
+  </div>
 </div>
         <div className="mt-16 grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-4">
          {employees.map((employee) => (
