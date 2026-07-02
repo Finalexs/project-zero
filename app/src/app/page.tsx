@@ -352,9 +352,12 @@ Not another workflow.
       className="flex-1 rounded-full border border-white/10 bg-black/40 px-5 py-3 text-white outline-none placeholder:text-white/30"
     />
 
-    <button className="rounded-full bg-white px-6 py-3 font-semibold text-black">
-      Join waitlist
-    </button>
+    <a
+  href="#waitlist"
+  className="rounded-full bg-white px-6 py-3 font-semibold text-black"
+>
+  Join waitlist
+</a>
   </div>
 
   <p className="mt-4 text-xs text-white/30">
