@@ -173,7 +173,22 @@ Not another workflow.
       Online
     </div>
   </div>
+<div className="mb-8 grid gap-4 md:grid-cols-3">
+  <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+    <p className="text-sm text-white/40">Active employees</p>
+    <div className="mt-2 text-3xl font-bold">4</div>
+  </div>
 
+  <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+    <p className="text-sm text-white/40">Tasks completed</p>
+    <div className="mt-2 text-3xl font-bold">127</div>
+  </div>
+
+  <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+    <p className="text-sm text-white/40">Hours saved</p>
+    <div className="mt-2 text-3xl font-bold">42h</div>
+  </div>
+</div>
   <div className="grid gap-4 md:grid-cols-2">
     <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
       <div className="flex items-center justify-between">
