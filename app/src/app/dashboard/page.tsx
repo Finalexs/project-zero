@@ -123,7 +123,41 @@ export default function DashboardPage() {
   </p>
 </div>
         </section>
+<section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+  <div className="flex items-center justify-between">
+    <div>
+      <p className="text-sm text-white/40">Activity</p>
+      <h2 className="mt-1 text-2xl font-bold">Company timeline</h2>
+    </div>
 
+    <span className="rounded-full border border-green-400/20 px-3 py-1 text-xs text-green-300">
+      Live
+    </span>
+  </div>
+
+  <div className="mt-6 space-y-4">
+    <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+      <p className="text-sm text-white/70">
+        Project Manager created a new task queue.
+      </p>
+      <p className="mt-1 text-xs text-white/30">Just now</p>
+    </div>
+
+    <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+      <p className="text-sm text-white/70">
+        Researcher started analyzing competitor positioning.
+      </p>
+      <p className="mt-1 text-xs text-white/30">2 minutes ago</p>
+    </div>
+
+    <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+      <p className="text-sm text-white/70">
+        Writer prepared first draft ideas for review.
+      </p>
+      <p className="mt-1 text-xs text-white/30">5 minutes ago</p>
+    </div>
+  </div>
+</section>
         <section className="mt-10 grid gap-6 lg:grid-cols-[1fr_1.4fr]">
           <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
             <h2 className="text-2xl font-bold">Employees</h2>
