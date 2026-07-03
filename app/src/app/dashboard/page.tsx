@@ -73,6 +73,12 @@ export default function DashboardPage() {
     time: "5 minutes ago",
   },
 ]);
+const [businessProfile, setBusinessProfile] = useState({
+  name: "Project Zero",
+  industry: "AI software",
+  customer: "New founders and small business owners",
+  goal: "Help businesses automate work with AI employees",
+});
  useEffect(() => {
   async function loadTasks() {
     setIsLoadingTasks(true);
@@ -125,14 +131,14 @@ setTaskError("");
           </p>
         </section>
 <section className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-5">
-  <p className="text-sm text-white/40">Give your company a task</p>
+  <p className="text-sm text-white/40">Command your AI company</p>
 
   <div className="mt-4 flex flex-col gap-3 md:flex-row">
     <input
   type="text"
   value={taskInput}
   onChange={(event) => setTaskInput(event.target.value)}
-  placeholder="Example: Research competitors and write 5 cold emails..."
+  placeholder="Example: Example: Create a 7-day marketing plan for my business..."
   className="flex-1 rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none placeholder:text-white/30"
 />
 
@@ -173,6 +179,86 @@ setTaskInput("");
 >
   Assign task
 </button>
+  </div>
+</section>
+<section className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+  <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+    <div>
+      <p className="text-sm text-blue-300/70">Business profile</p>
+      <h2 className="mt-2 text-3xl font-bold">
+        Teach your AI company what you are building.
+      </h2>
+      <p className="mt-3 max-w-2xl text-sm text-white/50">
+        Project Zero uses your business context to assign better tasks to the
+        right AI employees.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-green-400/20 bg-green-400/[0.04] px-4 py-2 text-sm text-green-300">
+      Context active
+    </div>
+  </div>
+
+  <div className="mt-6 grid gap-4 md:grid-cols-2">
+    <label className="block">
+      <span className="text-sm text-white/40">Business name</span>
+      <input
+        type="text"
+        value={businessProfile.name}
+        onChange={(event) =>
+          setBusinessProfile({
+            ...businessProfile,
+            name: event.target.value,
+          })
+        }
+        className="mt-2 w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none"
+      />
+    </label>
+
+    <label className="block">
+      <span className="text-sm text-white/40">Industry</span>
+      <input
+        type="text"
+        value={businessProfile.industry}
+        onChange={(event) =>
+          setBusinessProfile({
+            ...businessProfile,
+            industry: event.target.value,
+          })
+        }
+        className="mt-2 w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none"
+      />
+    </label>
+
+    <label className="block">
+      <span className="text-sm text-white/40">Target customer</span>
+      <input
+        type="text"
+        value={businessProfile.customer}
+        onChange={(event) =>
+          setBusinessProfile({
+            ...businessProfile,
+            customer: event.target.value,
+          })
+        }
+        className="mt-2 w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none"
+      />
+    </label>
+
+    <label className="block">
+      <span className="text-sm text-white/40">Main goal</span>
+      <input
+        type="text"
+        value={businessProfile.goal}
+        onChange={(event) =>
+          setBusinessProfile({
+            ...businessProfile,
+            goal: event.target.value,
+          })
+        }
+        className="mt-2 w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none"
+      />
+    </label>
   </div>
 </section>
         <section className="mt-10 grid gap-4 md:grid-cols-3">
