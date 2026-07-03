@@ -274,9 +274,22 @@ export default function DashboardPage() {
 
   <button
     type="button"
-    onClick={() => {
-      setTasks(tasks.filter((_, taskIndex) => taskIndex !== index));
-    }}
+    onClick={async () => {
+  const taskToDelete = tasks[index];
+
+  const { error } = await supabase
+    .from("tasks")
+    .delete()
+    .eq("id", taskToDelete.id);
+
+  if (error) {
+    alert(error.message);
+    console.error(error);
+    return;
+  }
+
+  setTasks(tasks.filter((_, taskIndex) => taskIndex !== index));
+}}
     className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/40 hover:text-white"
   >
     Remove
