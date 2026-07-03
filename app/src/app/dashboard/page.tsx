@@ -58,6 +58,7 @@ export default function DashboardPage() {
   const [taskInput, setTaskInput] = useState("");
   const [tasks, setTasks] = useState(initialTasks);
   const [isLoadingTasks, setIsLoadingTasks] = useState(true);
+  const [taskError, setTaskError] = useState("");
  useEffect(() => {
   async function loadTasks() {
     setIsLoadingTasks(true);
@@ -70,9 +71,12 @@ export default function DashboardPage() {
     setIsLoadingTasks(false);
 
     if (error) {
-      console.error(error);
-      return;
-    }
+  setTaskError("Could not load tasks. Try refreshing the page.");
+  console.error(error);
+  return;
+}
+
+setTaskError("");
 
     if (data) {
       setTasks(data);
@@ -181,6 +185,11 @@ export default function DashboardPage() {
   </div>
 
   <div className="mt-6 space-y-4">
+    {taskError && (
+  <div className="rounded-2xl border border-red-400/20 bg-red-400/[0.04] p-5 text-sm text-red-300">
+    {taskError}
+  </div>
+)}
     <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
       <p className="text-sm text-white/70">
         Project Manager created a new task queue.
@@ -243,7 +252,7 @@ export default function DashboardPage() {
 
   {tasks.map((task, index) => (
                 <div
-                  key={task.title}
+                  key={task.id}
                   className="rounded-2xl border border-white/10 bg-black/40 p-5"
                 >
                   <div className="flex items-center justify-between gap-4">
