@@ -2,6 +2,7 @@
 import { useState } from "react";
 export default function Home() {
   const [joinedWaitlist, setJoinedWaitlist] = useState(false);
+  const [email, setEmail] = useState("");
   const employees = [
   {
     name: "Project Manager",
@@ -411,14 +412,19 @@ Not another workflow.
 
   <div className="mx-auto mt-8 flex max-w-xl flex-col gap-3 sm:flex-row">
     <input
-      type="email"
-      placeholder="Enter your email"
-      className="flex-1 rounded-full border border-white/10 bg-black/40 px-5 py-3 text-white outline-none placeholder:text-white/30"
-    />
+  type="email"
+  value={email}
+  onChange={(event) => setEmail(event.target.value)}
+  placeholder="Enter your email"
+  className="flex-1 rounded-full border border-white/10 bg-black/40 px-5 py-3 text-white outline-none placeholder:text-white/30"
+/>
 
     <button
   type="button"
-  onClick={() => setJoinedWaitlist(true)}
+  onClick={() => {
+    if (!email) return;
+    setJoinedWaitlist(true);
+  }}
   className="rounded-full bg-white px-6 py-3 font-semibold text-black"
 >
   Join waitlist
