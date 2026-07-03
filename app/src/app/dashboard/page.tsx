@@ -384,14 +384,22 @@ setTaskInput("");
     <button
       type="button"
       onClick={() => {
-        setEmployeeOutputs(
-          employeeOutputs.map((currentOutput, outputIndex) =>
-            outputIndex === index
-              ? { ...currentOutput, status: "Approved" }
-              : currentOutput,
-          ),
-        );
-      }}
+  setEmployeeOutputs(
+    employeeOutputs.map((currentOutput, outputIndex) =>
+      outputIndex === index
+        ? { ...currentOutput, status: "Approved" }
+        : currentOutput,
+    ),
+  );
+
+  setActivity([
+    {
+      message: `${output.employee} output approved: "${output.title}"`,
+      time: "Just now",
+    },
+    ...activity,
+  ]);
+}}
       className="rounded-full border border-green-400/20 px-3 py-1 text-xs text-green-300 hover:text-green-200"
     >
       Approve
@@ -399,15 +407,23 @@ setTaskInput("");
 
     <button
       type="button"
-      onClick={() => {
-        setEmployeeOutputs(
-          employeeOutputs.map((currentOutput, outputIndex) =>
-            outputIndex === index
-              ? { ...currentOutput, status: "Needs changes" }
-              : currentOutput,
-          ),
-        );
-      }}
+     onClick={() => {
+  setEmployeeOutputs(
+    employeeOutputs.map((currentOutput, outputIndex) =>
+      outputIndex === index
+        ? { ...currentOutput, status: "Needs changes" }
+        : currentOutput,
+    ),
+  );
+
+  setActivity([
+    {
+      message: `${output.employee} output needs changes: "${output.title}"`,
+      time: "Just now",
+    },
+    ...activity,
+  ]);
+}}
       className="rounded-full border border-yellow-400/20 px-3 py-1 text-xs text-yellow-300 hover:text-yellow-200"
     >
       Needs changes
