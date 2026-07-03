@@ -45,8 +45,8 @@ export default function DashboardPage() {
     <main className="min-h-screen bg-black px-6 py-8 text-white">
       <div className="mx-auto max-w-6xl">
         <nav className="flex items-center justify-between rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 text-sm">
-          <Link href="/" className="font-semibold">
-  Project Zero
+          <Link href="/" className="font-semibold text-white hover:text-blue-300">
+  ← Back to Project Zero
 </Link>
 
           <div className="text-white/50">AI Company Dashboard</div>
@@ -62,7 +62,21 @@ export default function DashboardPage() {
             from one command center.
           </p>
         </section>
+<section className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-5">
+  <p className="text-sm text-white/40">Give your company a task</p>
 
+  <div className="mt-4 flex flex-col gap-3 md:flex-row">
+    <input
+      type="text"
+      placeholder="Example: Research competitors and write 5 cold emails..."
+      className="flex-1 rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none placeholder:text-white/30"
+    />
+
+    <button className="rounded-2xl bg-white px-6 py-3 font-semibold text-black">
+      Assign task
+    </button>
+  </div>
+</section>
         <section className="mt-10 grid gap-4 md:grid-cols-3">
           <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
             <p className="text-sm text-white/40">Active employees</p>
