@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
+import { supabase } from "@/lib/supabase";
 export default function Home() {
   const [joinedWaitlist, setJoinedWaitlist] = useState(false);
   const [email, setEmail] = useState("");
   const [waitlistError, setWaitlistError] = useState("");
+  const [isJoiningWaitlist, setIsJoiningWaitlist] = useState(false);
   const employees = [
   {
     name: "Project Manager",
@@ -423,18 +425,35 @@ Not another workflow.
     <button
   type="button"
   disabled={joinedWaitlist}
-  onClick={() => {
-    if (!email) {
-      setWaitlistError("Enter your email first.");
-      return;
-    }
+  onClick={async () => {
+  if (!email) {
+    setWaitlistError("Enter your email first.");
+    return;
+  }
 
-    setWaitlistError("");
-    setJoinedWaitlist(true);
-  }}
+  setIsJoiningWaitlist(true);
+  setWaitlistError("");
+
+  const { error } = await supabase.from("waitlist").insert({
+    email,
+  });
+
+  setIsJoiningWaitlist(false);
+
+  if (error) {
+    setWaitlistError("Something went wrong. Try again.");
+    return;
+  }
+
+  setJoinedWaitlist(true);
+}}
   className="rounded-full bg-white px-6 py-3 font-semibold text-black disabled:cursor-not-allowed disabled:opacity-60"
 >
-  {joinedWaitlist ? "Joined" : "Join waitlist"}
+  {isJoiningWaitlist
+  ? "Joining..."
+  : joinedWaitlist
+    ? "Joined"
+    : "Join waitlist"}
 </button>
   </div>
 {waitlistError && (
