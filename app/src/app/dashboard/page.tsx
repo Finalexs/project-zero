@@ -158,10 +158,27 @@ export default function DashboardPage() {
                       </p>
                     </div>
 
+                    
                     <div className="flex items-center gap-2">
   <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/60">
     {task.status}
   </span>
+
+  <button
+    type="button"
+    onClick={() => {
+      setTasks(
+        tasks.map((currentTask, taskIndex) =>
+          taskIndex === index
+            ? { ...currentTask, status: "Completed" }
+            : currentTask,
+        ),
+      );
+    }}
+    className="rounded-full border border-green-400/20 px-3 py-1 text-xs text-green-300 hover:text-green-200"
+  >
+    Complete
+  </button>
 
   <button
     type="button"
