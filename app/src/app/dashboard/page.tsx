@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 const employees = [
@@ -47,6 +47,25 @@ const initialTasks = [
 export default function DashboardPage() {
   const [taskInput, setTaskInput] = useState("");
   const [tasks, setTasks] = useState(initialTasks);
+  useEffect(() => {
+  async function loadTasks() {
+    const { data, error } = await supabase
+      .from("tasks")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    if (data) {
+      setTasks(data);
+    }
+  }
+
+  loadTasks();
+}, []);
   const completedTasks = tasks.filter(
   (task) => task.status === "Completed",
 ).length;
