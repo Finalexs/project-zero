@@ -23,3 +23,26 @@ Sprint 1 - Foundation
 
 ## Core Rule
 We are building an AI Company OS, not another automation tool.
+## v0.1.0 — Landing Page MVP
+
+Completed:
+
+- Public landing page
+- Hero section
+- Navbar
+- AI employee cards
+- Employee status indicators
+- Command input mockup
+- Dashboard preview
+- Trust section
+- How it works section
+- Employee marketplace preview
+- Product vision section
+- Pricing section
+- Waitlist UI
+- Waitlist success and error states
+- Footer
+- GitHub README
+- Site metadata
+
+Status: Completed Day 1 frontend MVP.
