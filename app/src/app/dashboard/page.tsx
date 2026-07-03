@@ -57,12 +57,17 @@ const initialTasks: Task[] = [
 export default function DashboardPage() {
   const [taskInput, setTaskInput] = useState("");
   const [tasks, setTasks] = useState(initialTasks);
-  useEffect(() => {
+  const [isLoadingTasks, setIsLoadingTasks] = useState(true);
+ useEffect(() => {
   async function loadTasks() {
+    setIsLoadingTasks(true);
+
     const { data, error } = await supabase
       .from("tasks")
       .select("*")
       .order("created_at", { ascending: false });
+
+    setIsLoadingTasks(false);
 
     if (error) {
       console.error(error);
@@ -223,8 +228,20 @@ export default function DashboardPage() {
           <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
             <h2 className="text-2xl font-bold">Tasks</h2>
 
-            <div className="mt-6 space-y-4">
-              {tasks.map((task, index) => (
+           <div className="mt-6 space-y-4">
+  {isLoadingTasks && (
+    <div className="rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
+      Loading tasks...
+    </div>
+  )}
+
+  {!isLoadingTasks && tasks.length === 0 && (
+    <div className="rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
+      No tasks yet. Assign your first task above.
+    </div>
+  )}
+
+  {tasks.map((task, index) => (
                 <div
                   key={task.title}
                   className="rounded-2xl border border-white/10 bg-black/40 p-5"
