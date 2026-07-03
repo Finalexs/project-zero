@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { supabase } from "@/lib/supabase";
 const employees = [
   {
     name: "Project Manager",
@@ -85,20 +86,30 @@ export default function DashboardPage() {
 
     <button
   type="button"
-  onClick={() => {
-    if (!taskInput) return;
+  onClick={async () => {
+  if (!taskInput) return;
 
-    setTasks([
-      {
-        title: taskInput,
-        employee: "Project Manager",
-        status: "New",
-      },
-      ...tasks,
-    ]);
+  const newTask = {
+    title: taskInput,
+    employee: "Project Manager",
+    status: "New",
+  };
 
-    setTaskInput("");
-  }}
+  const { data, error } = await supabase
+    .from("tasks")
+    .insert(newTask)
+    .select()
+    .single();
+
+  if (error) {
+  alert(error.message);
+  console.error(error);
+  return;
+}
+
+  setTasks([data, ...tasks]);
+  setTaskInput("");
+}}
   className="rounded-2xl bg-white px-6 py-3 font-semibold text-black"
 >
   Assign task
