@@ -167,6 +167,53 @@ Not another workflow.
             </div>
           ))}
         </div>
+        <div className="mt-24 w-full rounded-3xl border border-white/10 bg-white/[0.03] p-8 text-left">
+  <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+    <div>
+      <p className="text-sm text-blue-300/70">Why Project Zero</p>
+      <h2 className="mt-3 text-4xl font-bold tracking-tight">
+        Automation tools make you build workflows.
+        <br />
+        Project Zero lets you build a company.
+      </h2>
+      <p className="mt-5 text-white/55">
+        Instead of dragging nodes, fixing chains, and thinking like an engineer,
+        users hire AI employees that understand business goals and work together.
+      </p>
+    </div>
+
+    <div className="grid gap-4">
+      <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+        <p className="text-sm text-white/40">Traditional automation</p>
+        <h3 className="mt-2 text-xl font-semibold">Workflow chains</h3>
+        <p className="mt-2 text-sm text-white/50">
+          Triggers, nodes, conditions, errors, and technical setup before useful
+          work happens.
+        </p>
+      </div>
+
+      <div className="rounded-2xl border border-blue-400/20 bg-blue-400/[0.04] p-5">
+        <p className="text-sm text-blue-300/70">Project Zero</p>
+        <h3 className="mt-2 text-xl font-semibold">AI employees</h3>
+        <p className="mt-2 text-sm text-white/50">
+          Give your AI company a goal. Employees plan, research, write, review,
+          and execute work from one dashboard.
+        </p>
+      </div>
+
+      <div className="rounded-2xl border border-purple-400/20 bg-purple-400/[0.04] p-5">
+        <p className="text-sm text-purple-300/70">For both user types</p>
+        <h3 className="mt-2 text-xl font-semibold">
+          Simple for founders. Powerful for builders.
+        </h3>
+        <p className="mt-2 text-sm text-white/50">
+          Founder Mode keeps things simple. Builder Mode unlocks tools,
+          automations, memory, and advanced controls.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
         <div id="employees" className="mt-24 w-full">
   <h2 className="mb-10 text-center text-4xl font-bold">
     Your AI Company
