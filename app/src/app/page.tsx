@@ -214,6 +214,91 @@ Not another workflow.
     </div>
   </div>
 </div>
+<div className="mt-24 w-full rounded-3xl border border-blue-400/20 bg-blue-400/[0.03] p-8 text-left">
+  <div className="text-center">
+    <p className="text-sm text-blue-300/70">AI Company System</p>
+    <h2 className="mt-3 text-4xl font-bold tracking-tight">
+      One command turns into company-wide work.
+    </h2>
+    <p className="mx-auto mt-4 max-w-2xl text-white/55">
+      Project Zero turns a founder&apos;s goal into coordinated work across AI
+      employees, memory, tools, and review steps.
+    </p>
+  </div>
+
+  <div className="mt-10 grid gap-4 lg:grid-cols-4">
+    <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+      <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-white text-black">
+        1
+      </div>
+      <p className="text-sm text-white/40">Founder input</p>
+      <h3 className="mt-2 text-xl font-semibold">Give a business goal</h3>
+      <p className="mt-3 text-sm leading-6 text-white/50">
+        Example: create a marketing plan, find customers, write outreach, or
+        improve the website.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-blue-400/20 bg-blue-400/[0.04] p-5">
+      <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-blue-300 text-black">
+        2
+      </div>
+      <p className="text-sm text-blue-300/70">AI Company OS</p>
+      <h3 className="mt-2 text-xl font-semibold">Plan the work</h3>
+      <p className="mt-3 text-sm leading-6 text-white/50">
+        The system uses business memory, task context, employee roles, and
+        approval rules.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-purple-400/20 bg-purple-400/[0.04] p-5">
+      <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-purple-300 text-black">
+        3
+      </div>
+      <p className="text-sm text-purple-300/70">AI employees</p>
+      <h3 className="mt-2 text-xl font-semibold">Execute together</h3>
+      <p className="mt-3 text-sm leading-6 text-white/50">
+        Researcher, Writer, Sales Rep, Designer, QA, and Project Manager each
+        handle their part.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-green-400/20 bg-green-400/[0.04] p-5">
+      <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-green-300 text-black">
+        4
+      </div>
+      <p className="text-sm text-green-300/70">Business output</p>
+      <h3 className="mt-2 text-xl font-semibold">Review useful work</h3>
+      <p className="mt-3 text-sm leading-6 text-white/50">
+        Approve drafts, request changes, track progress, and keep humans in
+        control.
+      </p>
+    </div>
+  </div>
+
+  <div className="mt-8 rounded-2xl border border-white/10 bg-black/40 p-5">
+    <div className="grid gap-4 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-center">
+      <div className="rounded-xl border border-white/10 p-4">
+        <p className="text-sm font-semibold">Founder</p>
+        <p className="mt-1 text-xs text-white/40">Goal + business context</p>
+      </div>
+
+      <div className="hidden text-white/30 md:block">→</div>
+
+      <div className="rounded-xl border border-blue-400/20 bg-blue-400/[0.04] p-4">
+        <p className="text-sm font-semibold text-blue-300">Project Zero</p>
+        <p className="mt-1 text-xs text-white/40">Company memory + routing</p>
+      </div>
+
+      <div className="hidden text-white/30 md:block">→</div>
+
+      <div className="rounded-xl border border-green-400/20 bg-green-400/[0.04] p-4">
+        <p className="text-sm font-semibold text-green-300">AI Employees</p>
+        <p className="mt-1 text-xs text-white/40">Tasks, drafts, approvals</p>
+      </div>
+    </div>
+  </div>
+</div>
         <div id="employees" className="mt-24 w-full">
   <h2 className="mb-10 text-center text-4xl font-bold">
     Your AI Company
