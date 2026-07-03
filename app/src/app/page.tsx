@@ -441,9 +441,14 @@ Not another workflow.
   setIsJoiningWaitlist(false);
 
   if (error) {
-    setWaitlistError("Something went wrong. Try again.");
+  if (error.code === "23505") {
+    setWaitlistError("This email is already on the waitlist.");
     return;
   }
+
+  setWaitlistError("Something went wrong. Try again.");
+  return;
+}
 
   setJoinedWaitlist(true);
 }}
