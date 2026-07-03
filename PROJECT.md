@@ -46,3 +46,21 @@ Completed:
 - Site metadata
 
 Status: Completed Day 1 frontend MVP.
+## v0.2.0 — Real Waitlist Backend
+
+Goal:
+
+Turn the waitlist from a frontend mockup into a real system that saves emails.
+
+Planned features:
+
+- Create Supabase project
+- Create waitlist database table
+- Connect Next.js app to Supabase
+- Save emails from the waitlist form
+- Prevent empty email submissions
+- Prevent duplicate emails
+- Show success and error messages
+- Keep database keys safe using environment variables
+
+Status: Not started.
