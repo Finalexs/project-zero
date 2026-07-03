@@ -422,17 +422,17 @@ Not another workflow.
 
     <button
   type="button"
+  disabled={joinedWaitlist}
   onClick={() => {
-  if (!email) {
-    setWaitlistError("Enter your email first.");
-    return;
-  }
+    if (!email) {
+      setWaitlistError("Enter your email first.");
+      return;
+    }
 
-  setWaitlistError("");
-  setJoinedWaitlist(true);
-}}
-  className="rounded-full bg-white px-6 py-3 font-semibold text-black"
-  
+    setWaitlistError("");
+    setJoinedWaitlist(true);
+  }}
+  className="rounded-full bg-white px-6 py-3 font-semibold text-black disabled:cursor-not-allowed disabled:opacity-60"
 >
   {joinedWaitlist ? "Joined" : "Join waitlist"}
 </button>
