@@ -163,7 +163,31 @@ setTaskError("");
 
   loadTasks();
 }, []);
-  const completedTasks = tasks.filter(
+const latestTask = tasks[0];
+
+const memoryItems = [
+  {
+    label: "Business",
+    value: businessProfile.name,
+  },
+  {
+    label: "Industry",
+    value: businessProfile.industry,
+  },
+  {
+    label: "Target customer",
+    value: businessProfile.customer,
+  },
+  {
+    label: "Main goal",
+    value: businessProfile.goal,
+  },
+  {
+    label: "Latest task",
+    value: latestTask ? latestTask.title : "No tasks assigned yet",
+  },
+];  
+const completedTasks = tasks.filter(
   (task) => task.status === "Completed",
 ).length;
 
@@ -408,6 +432,38 @@ setTaskInput("");
   </p>
 </div>
         </section>
+<section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+  <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <div>
+      <p className="text-sm text-white/40">Company memory</p>
+      <h2 className="mt-1 text-2xl font-bold">
+        What your AI company knows.
+      </h2>
+      <p className="mt-2 max-w-2xl text-sm text-white/50">
+        Project Zero uses this context to help employees understand your
+        business before doing work.
+      </p>
+    </div>
+
+    <span className="rounded-full border border-purple-400/20 px-3 py-1 text-xs text-purple-300">
+      Shared context
+    </span>
+  </div>
+
+  <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    {memoryItems.map((item) => (
+      <div
+        key={item.label}
+        className="rounded-2xl border border-white/10 bg-black/40 p-5"
+      >
+        <p className="text-xs uppercase tracking-wide text-white/30">
+          {item.label}
+        </p>
+        <p className="mt-2 text-sm leading-6 text-white/70">{item.value}</p>
+      </div>
+    ))}
+  </div>
+</section>
 <section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
   <div className="flex items-center justify-between">
     <div>
