@@ -145,7 +145,7 @@ export default function DashboardPage() {
             <h2 className="text-2xl font-bold">Tasks</h2>
 
             <div className="mt-6 space-y-4">
-              {tasks.map((task) => (
+              {tasks.map((task, index) => (
                 <div
                   key={task.title}
                   className="rounded-2xl border border-white/10 bg-black/40 p-5"
@@ -158,9 +158,21 @@ export default function DashboardPage() {
                       </p>
                     </div>
 
-                    <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/60">
-                      {task.status}
-                    </span>
+                    <div className="flex items-center gap-2">
+  <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/60">
+    {task.status}
+  </span>
+
+  <button
+    type="button"
+    onClick={() => {
+      setTasks(tasks.filter((_, taskIndex) => taskIndex !== index));
+    }}
+    className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/40 hover:text-white"
+  >
+    Remove
+  </button>
+</div>
                   </div>
                 </div>
               ))}
