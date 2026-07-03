@@ -1,4 +1,7 @@
+"use client";
+import { useState } from "react";
 export default function Home() {
+  const [joinedWaitlist, setJoinedWaitlist] = useState(false);
   const employees = [
   {
     name: "Project Manager",
@@ -413,17 +416,23 @@ Not another workflow.
       className="flex-1 rounded-full border border-white/10 bg-black/40 px-5 py-3 text-white outline-none placeholder:text-white/30"
     />
 
-    <a
-  href="#waitlist"
+    <button
+  type="button"
+  onClick={() => setJoinedWaitlist(true)}
   className="rounded-full bg-white px-6 py-3 font-semibold text-black"
 >
   Join waitlist
-</a>
+</button>
   </div>
 
   <p className="mt-4 text-xs text-white/30">
     No spam. Just progress updates and beta access.
   </p>
+  {joinedWaitlist && (
+  <p className="mt-3 text-sm text-green-400">
+    You’re on the list. We’ll contact you when Project Zero opens.
+  </p>
+)}
 </div>
 <footer className="mt-24 flex w-full flex-col items-center justify-between gap-4 border-t border-white/10 py-10 text-sm text-white/40 md:flex-row">
   <div>
