@@ -57,6 +57,9 @@ const initialTasks: Task[] = [
 export default function DashboardPage() {
   const [taskInput, setTaskInput] = useState("");
   const [selectedEmployee, setSelectedEmployee] = useState("Project Manager");
+  const [dashboardMode, setDashboardMode] = useState<"founder" | "builder">(
+  "founder",
+);
   const [tasks, setTasks] = useState(initialTasks);
   const [isLoadingTasks, setIsLoadingTasks] = useState(true);
   const [taskError, setTaskError] = useState("");
@@ -213,15 +216,45 @@ const companyScore = Math.min(
         </nav>
 
         <section className="mt-12">
-          <p className="text-sm text-blue-300/70">Dashboard</p>
-          <h1 className="mt-2 text-5xl font-bold">
-            Your AI company is running.
-          </h1>
-          <p className="mt-4 max-w-2xl text-white/60">
-            Manage employees, assign tasks, track progress and review results
-            from one command center.
-          </p>
-        </section>
+  <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+    <div>
+      <p className="text-sm text-blue-300/70">Dashboard</p>
+      <h1 className="mt-2 text-5xl font-bold">
+        Your AI company is running.
+      </h1>
+      <p className="mt-4 max-w-2xl text-white/60">
+        Manage employees, assign tasks, track progress and review results from
+        one command center.
+      </p>
+    </div>
+
+    <div className="rounded-full border border-white/10 bg-white/[0.03] p-1">
+      <button
+        type="button"
+        onClick={() => setDashboardMode("founder")}
+        className={`rounded-full px-4 py-2 text-sm font-semibold ${
+          dashboardMode === "founder"
+            ? "bg-white text-black"
+            : "text-white/50 hover:text-white"
+        }`}
+      >
+        Founder Mode
+      </button>
+
+      <button
+        type="button"
+        onClick={() => setDashboardMode("builder")}
+        className={`rounded-full px-4 py-2 text-sm font-semibold ${
+          dashboardMode === "builder"
+            ? "bg-white text-black"
+            : "text-white/50 hover:text-white"
+        }`}
+      >
+        Builder Mode
+      </button>
+    </div>
+  </div>
+</section>
 <section className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-5">
   <p className="text-sm text-white/40">Command your AI company</p>
 
@@ -344,6 +377,56 @@ setTaskInput("");
     ))}
   </div>
 </section>
+{dashboardMode === "builder" && (
+  <section className="mt-6 rounded-3xl border border-purple-400/20 bg-purple-400/[0.04] p-6">
+    <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+      <div>
+        <p className="text-sm text-purple-300/70">Builder Mode</p>
+        <h2 className="mt-1 text-2xl font-bold">
+          Advanced company controls.
+        </h2>
+        <p className="mt-2 max-w-2xl text-sm text-white/50">
+          Builder Mode is for advanced users who want more control over AI
+          employees, tools, automations, and memory.
+        </p>
+      </div>
+
+      <span className="rounded-full border border-purple-400/20 px-3 py-1 text-xs text-purple-300">
+        Power user
+      </span>
+    </div>
+
+    <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+        <p className="text-sm font-semibold">Employee tools</p>
+        <p className="mt-2 text-sm text-white/50">
+          Choose what tools each AI employee can use.
+        </p>
+      </div>
+
+      <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+        <p className="text-sm font-semibold">Automation triggers</p>
+        <p className="mt-2 text-sm text-white/50">
+          Start work from forms, emails, webhooks, or schedules.
+        </p>
+      </div>
+
+      <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+        <p className="text-sm font-semibold">Company memory</p>
+        <p className="mt-2 text-sm text-white/50">
+          Control what the AI company remembers.
+        </p>
+      </div>
+
+      <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+        <p className="text-sm font-semibold">Approval rules</p>
+        <p className="mt-2 text-sm text-white/50">
+          Decide what actions need human approval.
+        </p>
+      </div>
+    </div>
+  </section>
+)}
 <section className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
   <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
     <div>
