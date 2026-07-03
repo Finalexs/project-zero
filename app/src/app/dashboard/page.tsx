@@ -64,6 +64,7 @@ export default function DashboardPage() {
   {
     employee: "Project Manager",
     title: "Company setup plan",
+    status: "Draft",
     content:
       "Your AI company is ready. Start by defining your business goal, assigning tasks, and reviewing employee outputs.",
   },
@@ -207,6 +208,7 @@ setEmployeeOutputs([
   {
     employee: selectedEmployee,
     title: data.title,
+    status: "Draft",
     content: `${selectedEmployee} is preparing work for ${businessProfile.name}. This task is connected to your goal: "${businessProfile.goal}".`,
   },
   ...employeeOutputs,
@@ -373,6 +375,45 @@ setTaskInput("");
         </div>
 
         <p className="mt-4 text-sm leading-6 text-white/60">{output.content}</p>
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+  <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50">
+    {output.status}
+  </span>
+
+  <div className="flex gap-2">
+    <button
+      type="button"
+      onClick={() => {
+        setEmployeeOutputs(
+          employeeOutputs.map((currentOutput, outputIndex) =>
+            outputIndex === index
+              ? { ...currentOutput, status: "Approved" }
+              : currentOutput,
+          ),
+        );
+      }}
+      className="rounded-full border border-green-400/20 px-3 py-1 text-xs text-green-300 hover:text-green-200"
+    >
+      Approve
+    </button>
+
+    <button
+      type="button"
+      onClick={() => {
+        setEmployeeOutputs(
+          employeeOutputs.map((currentOutput, outputIndex) =>
+            outputIndex === index
+              ? { ...currentOutput, status: "Needs changes" }
+              : currentOutput,
+          ),
+        );
+      }}
+      className="rounded-full border border-yellow-400/20 px-3 py-1 text-xs text-yellow-300 hover:text-yellow-200"
+    >
+      Needs changes
+    </button>
+  </div>
+</div>
       </div>
     ))}
   </div>
