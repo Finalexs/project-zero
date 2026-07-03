@@ -63,4 +63,14 @@ Planned features:
 - Show success and error messages
 - Keep database keys safe using environment variables
 
-Status: Not started.
+Status: In progress.
+
+Completed:
+
+- Created Supabase project
+- Created waitlist table
+- Enabled Row Level Security
+- Added public insert policy
+- Connected Next.js app to Supabase
+- Saved waitlist emails to database
+- Added duplicate email handling
