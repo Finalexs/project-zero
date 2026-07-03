@@ -190,6 +190,16 @@ const memoryItems = [
 const completedTasks = tasks.filter(
   (task) => task.status === "Completed",
 ).length;
+const approvedOutputs = employeeOutputs.filter(
+  (output) => output.status === "Approved",
+).length;
+
+const profileFieldsFilled = Object.values(businessProfile).filter(Boolean).length;
+
+const companyScore = Math.min(
+  100,
+  profileFieldsFilled * 15 + tasks.length * 5 + completedTasks * 10 + approvedOutputs * 10,
+);
 
   return (
     <main className="min-h-screen bg-black px-6 py-8 text-white">
@@ -462,6 +472,54 @@ setTaskInput("");
         <p className="mt-2 text-sm leading-6 text-white/70">{item.value}</p>
       </div>
     ))}
+  </div>
+</section>
+<section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+  <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <div>
+      <p className="text-sm text-white/40">Company health</p>
+      <h2 className="mt-1 text-2xl font-bold">
+        Your AI company progress score.
+      </h2>
+      <p className="mt-2 max-w-2xl text-sm text-white/50">
+        This score increases when your business profile is complete, tasks are
+        created, tasks are completed, and employee outputs are approved.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-green-400/20 bg-green-400/[0.04] px-5 py-3 text-right">
+      <p className="text-xs text-green-300/70">Health score</p>
+      <p className="text-3xl font-bold text-green-300">{companyScore}%</p>
+    </div>
+  </div>
+
+  <div className="mt-6 h-3 overflow-hidden rounded-full bg-white/10">
+    <div
+      className="h-full rounded-full bg-green-400"
+      style={{ width: `${companyScore}%` }}
+    />
+  </div>
+
+  <div className="mt-6 grid gap-4 md:grid-cols-4">
+    <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+      <p className="text-xs text-white/30">Profile fields</p>
+      <p className="mt-2 text-2xl font-bold">{profileFieldsFilled}/4</p>
+    </div>
+
+    <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+      <p className="text-xs text-white/30">Tasks created</p>
+      <p className="mt-2 text-2xl font-bold">{tasks.length}</p>
+    </div>
+
+    <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+      <p className="text-xs text-white/30">Tasks completed</p>
+      <p className="mt-2 text-2xl font-bold">{completedTasks}</p>
+    </div>
+
+    <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+      <p className="text-xs text-white/30">Outputs approved</p>
+      <p className="mt-2 text-2xl font-bold">{approvedOutputs}</p>
+    </div>
   </div>
 </section>
 <section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
