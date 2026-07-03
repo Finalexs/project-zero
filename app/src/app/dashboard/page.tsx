@@ -3,6 +3,13 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
+type Task = {
+  id: string;
+  title: string;
+  employee: string;
+  status: string;
+  created_at?: string;
+};
 const employees = [
   {
     name: "Project Manager",
@@ -26,18 +33,21 @@ const employees = [
   },
 ];
 
-const initialTasks = [
+const initialTasks: Task[] = [
   {
+    id: "starter-1",
     title: "Research 5 competitors",
     employee: "Researcher",
     status: "In progress",
   },
   {
+    id: "starter-2",
     title: "Write homepage headline options",
     employee: "Writer",
     status: "Drafting",
   },
   {
+    id: "starter-3",
     title: "Review final landing page copy",
     employee: "QA",
     status: "Waiting",
@@ -235,15 +245,28 @@ export default function DashboardPage() {
 
   <button
     type="button"
-    onClick={() => {
-      setTasks(
-        tasks.map((currentTask, taskIndex) =>
-          taskIndex === index
-            ? { ...currentTask, status: "Completed" }
-            : currentTask,
-        ),
-      );
-    }}
+    onClick={async () => {
+  const taskToUpdate = tasks[index];
+
+  const { error } = await supabase
+    .from("tasks")
+    .update({ status: "Completed" })
+    .eq("id", taskToUpdate.id);
+
+  if (error) {
+    alert(error.message);
+    console.error(error);
+    return;
+  }
+
+  setTasks(
+    tasks.map((currentTask, taskIndex) =>
+      taskIndex === index
+        ? { ...currentTask, status: "Completed" }
+        : currentTask,
+    ),
+  );
+}}
     className="rounded-full border border-green-400/20 px-3 py-1 text-xs text-green-300 hover:text-green-200"
   >
     Complete
