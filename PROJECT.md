@@ -74,3 +74,27 @@ Completed:
 - Connected Next.js app to Supabase
 - Saved waitlist emails to database
 - Added duplicate email handling
+## v0.3.0 — Dashboard MVP
+
+Goal:
+
+Create the first real dashboard page for managing an AI company.
+
+Completed:
+
+- Created `/dashboard` route
+- Added dashboard navbar
+- Added task command box
+- Added employee panel
+- Added task panel
+- Added interactive task creation
+- Added task removal
+- Added task completion
+- Added dynamic task count
+- Added completed task count
+- Added activity timeline
+- Connected homepage to dashboard
+- Added dashboard button to landing page hero
+- Deployed dashboard to Vercel
+
+Status: In progress.
