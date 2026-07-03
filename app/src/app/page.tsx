@@ -59,9 +59,9 @@ export default function Home() {
     <a href="#employees" className="hover:text-white">
       Employees
     </a>
-    <a href="#dashboard" className="hover:text-white">
-      Dashboard
-    </a>
+    <a href="/dashboard" className="hover:text-white">
+  Dashboard
+</a>
     <a href="#pricing" className="hover:text-white">
       Pricing
     </a>
@@ -485,9 +485,9 @@ Not another workflow.
     <a href="#employees" className="hover:text-white">
       Employees
     </a>
-    <a href="#dashboard" className="hover:text-white">
-      Dashboard
-    </a>
+    <a href="/dashboard" className="hover:text-white">
+  Dashboard
+</a>
     <a href="#pricing" className="hover:text-white">
       Pricing
     </a>
