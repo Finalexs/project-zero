@@ -59,6 +59,20 @@ export default function DashboardPage() {
   const [tasks, setTasks] = useState(initialTasks);
   const [isLoadingTasks, setIsLoadingTasks] = useState(true);
   const [taskError, setTaskError] = useState("");
+  const [activity, setActivity] = useState([
+  {
+    message: "Project Manager created a new task queue.",
+    time: "Just now",
+  },
+  {
+    message: "Researcher started analyzing competitor positioning.",
+    time: "2 minutes ago",
+  },
+  {
+    message: "Writer prepared first draft ideas for review.",
+    time: "5 minutes ago",
+  },
+]);
  useEffect(() => {
   async function loadTasks() {
     setIsLoadingTasks(true);
@@ -146,7 +160,14 @@ setTaskError("");
 }
 
   setTasks([data, ...tasks]);
-  setTaskInput("");
+setActivity([
+  {
+    message: `Project Manager received a new task: "${data.title}"`,
+    time: "Just now",
+  },
+  ...activity,
+]);
+setTaskInput("");
 }}
   className="rounded-2xl bg-white px-6 py-3 font-semibold text-black"
 >
@@ -185,32 +206,22 @@ setTaskError("");
   </div>
 
   <div className="mt-6 space-y-4">
-    {taskError && (
-  <div className="rounded-2xl border border-red-400/20 bg-red-400/[0.04] p-5 text-sm text-red-300">
-    {taskError}
-  </div>
-)}
-    <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
-      <p className="text-sm text-white/70">
-        Project Manager created a new task queue.
-      </p>
-      <p className="mt-1 text-xs text-white/30">Just now</p>
+  {taskError && (
+    <div className="rounded-2xl border border-red-400/20 bg-red-400/[0.04] p-5 text-sm text-red-300">
+      {taskError}
     </div>
+  )}
 
-    <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
-      <p className="text-sm text-white/70">
-        Researcher started analyzing competitor positioning.
-      </p>
-      <p className="mt-1 text-xs text-white/30">2 minutes ago</p>
+  {activity.map((item, index) => (
+    <div
+      key={`${item.message}-${index}`}
+      className="rounded-2xl border border-white/10 bg-black/40 p-4"
+    >
+      <p className="text-sm text-white/70">{item.message}</p>
+      <p className="mt-1 text-xs text-white/30">{item.time}</p>
     </div>
-
-    <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
-      <p className="text-sm text-white/70">
-        Writer prepared first draft ideas for review.
-      </p>
-      <p className="mt-1 text-xs text-white/30">5 minutes ago</p>
-    </div>
-  </div>
+  ))}
+</div>
 </section>
         <section className="mt-10 grid gap-6 lg:grid-cols-[1fr_1.4fr]">
           <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
