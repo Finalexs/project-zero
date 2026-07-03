@@ -426,8 +426,9 @@ Not another workflow.
     setJoinedWaitlist(true);
   }}
   className="rounded-full bg-white px-6 py-3 font-semibold text-black"
+  
 >
-  Join waitlist
+  {joinedWaitlist ? "Joined" : "Join waitlist"}
 </button>
   </div>
 
