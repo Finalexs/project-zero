@@ -56,6 +56,7 @@ const initialTasks: Task[] = [
 
 export default function DashboardPage() {
   const [taskInput, setTaskInput] = useState("");
+  const [selectedEmployee, setSelectedEmployee] = useState("Project Manager");
   const [tasks, setTasks] = useState(initialTasks);
   const [isLoadingTasks, setIsLoadingTasks] = useState(true);
   const [taskError, setTaskError] = useState("");
@@ -79,6 +80,16 @@ const [businessProfile, setBusinessProfile] = useState({
   customer: "New founders and small business owners",
   goal: "Help businesses automate work with AI employees",
 });
+const employeeOptions = [
+  "Project Manager",
+  "Researcher",
+  "Writer",
+  "QA",
+  "Sales Rep",
+  "Designer",
+  "Developer",
+  "SEO Specialist",
+];
  useEffect(() => {
   async function loadTasks() {
     setIsLoadingTasks(true);
@@ -141,6 +152,17 @@ setTaskError("");
   placeholder="Example: Example: Create a 7-day marketing plan for my business..."
   className="flex-1 rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none placeholder:text-white/30"
 />
+<select
+  value={selectedEmployee}
+  onChange={(event) => setSelectedEmployee(event.target.value)}
+  className="rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none"
+>
+  {employeeOptions.map((employee) => (
+    <option key={employee} value={employee} className="bg-black text-white">
+      {employee}
+    </option>
+  ))}
+</select>
 
     <button
   type="button"
@@ -149,7 +171,7 @@ setTaskError("");
 
   const newTask = {
     title: taskInput,
-    employee: "Project Manager",
+    employee: selectedEmployee,
     status: "New",
   };
 
@@ -168,7 +190,7 @@ setTaskError("");
   setTasks([data, ...tasks]);
 setActivity([
   {
-    message: `Project Manager received a new task: "${data.title}"`,
+    message: `${selectedEmployee} received a new task: "${data.title}" for ${businessProfile.name}.`,
     time: "Just now",
   },
   ...activity,
