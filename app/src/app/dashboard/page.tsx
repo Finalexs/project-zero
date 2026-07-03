@@ -46,6 +46,9 @@ const initialTasks = [
 export default function DashboardPage() {
   const [taskInput, setTaskInput] = useState("");
   const [tasks, setTasks] = useState(initialTasks);
+  const completedTasks = tasks.filter(
+  (task) => task.status === "Completed",
+).length;
 
   return (
     <main className="min-h-screen bg-black px-6 py-8 text-white">
@@ -114,9 +117,11 @@ export default function DashboardPage() {
           </div>
 
           <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-            <p className="text-sm text-white/40">Company status</p>
-            <p className="mt-3 text-4xl font-bold text-green-400">Online</p>
-          </div>
+  <p className="text-sm text-white/40">Completed tasks</p>
+  <p className="mt-3 text-4xl font-bold text-green-400">
+    {completedTasks}
+  </p>
+</div>
         </section>
 
         <section className="mt-10 grid gap-6 lg:grid-cols-[1fr_1.4fr]">
