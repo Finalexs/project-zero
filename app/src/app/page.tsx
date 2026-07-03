@@ -3,6 +3,7 @@ import { useState } from "react";
 export default function Home() {
   const [joinedWaitlist, setJoinedWaitlist] = useState(false);
   const [email, setEmail] = useState("");
+  const [waitlistError, setWaitlistError] = useState("");
   const employees = [
   {
     name: "Project Manager",
@@ -422,16 +423,25 @@ Not another workflow.
     <button
   type="button"
   onClick={() => {
-    if (!email) return;
-    setJoinedWaitlist(true);
-  }}
+  if (!email) {
+    setWaitlistError("Enter your email first.");
+    return;
+  }
+
+  setWaitlistError("");
+  setJoinedWaitlist(true);
+}}
   className="rounded-full bg-white px-6 py-3 font-semibold text-black"
   
 >
   {joinedWaitlist ? "Joined" : "Join waitlist"}
 </button>
   </div>
-
+{waitlistError && (
+  <p className="mt-3 text-sm text-red-400">
+    {waitlistError}
+  </p>
+)}
   <p className="mt-4 text-xs text-white/30">
     No spam. Just progress updates and beta access.
   </p>
