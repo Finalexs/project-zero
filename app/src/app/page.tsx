@@ -88,20 +88,28 @@ Not another workflow.
           review, and execute work for your business.
         </p>
 
-        <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-          <a
-  href="#waitlist"
-  className="rounded-full bg-white px-8 py-3 font-semibold text-black"
->
-  Start building
-</a>
-          <a
-  href="#employees"
-  className="rounded-full border border-white/15 px-8 py-3 font-semibold text-white"
->
-  View employees
-</a>
-        </div>
+<div className="mt-10 flex flex-col gap-4 sm:flex-row">
+  <a
+    href="#waitlist"
+    className="rounded-full bg-white px-8 py-3 font-semibold text-black"
+  >
+    Start building
+  </a>
+
+  <a
+    href="#employees"
+    className="rounded-full border border-white/15 px-8 py-3 font-semibold text-white"
+  >
+    View employees
+  </a>
+
+  <a
+    href="/dashboard"
+    className="rounded-full border border-blue-400/30 px-8 py-3 font-semibold text-blue-300"
+  >
+    Open dashboard
+  </a>
+</div>
 <div className="mt-10 w-full max-w-2xl rounded-3xl border border-white/10 bg-white/[0.03] p-4 text-left backdrop-blur-md">
   <p className="mb-3 text-sm text-white/40">Give your AI company a goal</p>
 
