@@ -25,7 +25,7 @@ const employees = [
   },
 ];
 
-const tasks = [
+const initialTasks = [
   {
     title: "Research 5 competitors",
     employee: "Researcher",
@@ -44,6 +44,9 @@ const tasks = [
 ];
 
 export default function DashboardPage() {
+  const [taskInput, setTaskInput] = useState("");
+  const [tasks, setTasks] = useState(initialTasks);
+
   return (
     <main className="min-h-screen bg-black px-6 py-8 text-white">
       <div className="mx-auto max-w-6xl">
@@ -70,14 +73,33 @@ export default function DashboardPage() {
 
   <div className="mt-4 flex flex-col gap-3 md:flex-row">
     <input
-      type="text"
-      placeholder="Example: Research competitors and write 5 cold emails..."
-      className="flex-1 rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none placeholder:text-white/30"
-    />
+  type="text"
+  value={taskInput}
+  onChange={(event) => setTaskInput(event.target.value)}
+  placeholder="Example: Research competitors and write 5 cold emails..."
+  className="flex-1 rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none placeholder:text-white/30"
+/>
 
-    <button className="rounded-2xl bg-white px-6 py-3 font-semibold text-black">
-      Assign task
-    </button>
+    <button
+  type="button"
+  onClick={() => {
+    if (!taskInput) return;
+
+    setTasks([
+      {
+        title: taskInput,
+        employee: "Project Manager",
+        status: "New",
+      },
+      ...tasks,
+    ]);
+
+    setTaskInput("");
+  }}
+  className="rounded-2xl bg-white px-6 py-3 font-semibold text-black"
+>
+  Assign task
+</button>
   </div>
 </section>
         <section className="mt-10 grid gap-4 md:grid-cols-3">
@@ -88,7 +110,7 @@ export default function DashboardPage() {
 
           <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
             <p className="text-sm text-white/40">Tasks running</p>
-            <p className="mt-3 text-4xl font-bold">3</p>
+            <p className="mt-3 text-4xl font-bold">{tasks.length}</p>
           </div>
 
           <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
