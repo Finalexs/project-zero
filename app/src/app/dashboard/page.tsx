@@ -60,6 +60,14 @@ export default function DashboardPage() {
   const [tasks, setTasks] = useState(initialTasks);
   const [isLoadingTasks, setIsLoadingTasks] = useState(true);
   const [taskError, setTaskError] = useState("");
+  const [employeeOutputs, setEmployeeOutputs] = useState([
+  {
+    employee: "Project Manager",
+    title: "Company setup plan",
+    content:
+      "Your AI company is ready. Start by defining your business goal, assigning tasks, and reviewing employee outputs.",
+  },
+]);
   const [activity, setActivity] = useState([
   {
     message: "Project Manager created a new task queue.",
@@ -194,6 +202,14 @@ setActivity([
     time: "Just now",
   },
   ...activity,
+]);
+setEmployeeOutputs([
+  {
+    employee: selectedEmployee,
+    title: data.title,
+    content: `${selectedEmployee} is preparing work for ${businessProfile.name}. This task is connected to your goal: "${businessProfile.goal}".`,
+  },
+  ...employeeOutputs,
 ]);
 setTaskInput("");
 }}
@@ -330,6 +346,36 @@ setTaskInput("");
     </div>
   ))}
 </div>
+</section>
+<section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+  <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <div>
+      <p className="text-sm text-white/40">Employee outputs</p>
+      <h2 className="mt-1 text-2xl font-bold">Work produced by your AI company</h2>
+    </div>
+
+    <span className="rounded-full border border-blue-400/20 px-3 py-1 text-xs text-blue-300">
+      Drafts
+    </span>
+  </div>
+
+  <div className="mt-6 grid gap-4 md:grid-cols-2">
+    {employeeOutputs.map((output, index) => (
+      <div
+        key={`${output.employee}-${output.title}-${index}`}
+        className="rounded-2xl border border-white/10 bg-black/40 p-5"
+      >
+        <div className="flex items-center justify-between gap-4">
+          <h3 className="font-semibold">{output.title}</h3>
+          <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50">
+            {output.employee}
+          </span>
+        </div>
+
+        <p className="mt-4 text-sm leading-6 text-white/60">{output.content}</p>
+      </div>
+    ))}
+  </div>
 </section>
         <section className="mt-10 grid gap-6 lg:grid-cols-[1fr_1.4fr]">
           <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
