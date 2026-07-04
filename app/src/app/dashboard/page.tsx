@@ -209,6 +209,17 @@ const taskTemplates = [
       "Suggest colors, visual style, and content direction for the business.",
   },
 ];
+function getOutputType(employee: string) {
+  if (employee === "Researcher") return "Research brief";
+  if (employee === "Writer") return "Draft copy";
+  if (employee === "Sales Rep") return "Sales plan";
+  if (employee === "Designer") return "Design direction";
+  if (employee === "Developer") return "Technical plan";
+  if (employee === "QA") return "Quality review";
+  if (employee === "SEO Specialist") return "SEO plan";
+
+  return "Project plan";
+}
  useEffect(() => {
   async function loadTasks() {
     setIsLoadingTasks(true);
@@ -408,7 +419,14 @@ if (!outputResponse.ok) {
   return;
 }
 
-setEmployeeOutputs([generatedOutput, ...employeeOutputs]);
+setEmployeeOutputs([
+  {
+    ...generatedOutput,
+    type: getOutputType(selectedEmployee),
+    createdAt: "Just now",
+  },
+  ...employeeOutputs,
+]);
 setTaskInput("");
 }}
   className="rounded-2xl bg-white px-6 py-3 font-semibold text-black"
@@ -782,14 +800,30 @@ setTaskInput("");
         key={`${output.employee}-${output.title}-${index}`}
         className="rounded-2xl border border-white/10 bg-black/40 p-5"
       >
-        <div className="flex items-center justify-between gap-4">
-          <h3 className="font-semibold">{output.title}</h3>
-          <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50">
-            {output.employee}
-          </span>
-        </div>
+        <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+  <div>
+    <p className="text-sm text-white/40">{output.employee}</p>
+    <h3 className="mt-2 font-semibold">{output.title}</h3>
+  </div>
 
-        <p className="mt-4 text-sm leading-6 text-white/60">{output.content}</p>
+  <div className="flex flex-wrap gap-2">
+   {"type" in output && typeof output.type === "string" && (
+  <span className="rounded-full border border-blue-400/20 bg-blue-400/[0.04] px-3 py-1 text-xs text-blue-300">
+    {output.type}
+  </span>
+)}
+
+{"createdAt" in output && typeof output.createdAt === "string" && (
+  <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs text-white/40">
+    {output.createdAt}
+  </span>
+)}
+  </div>
+</div>
+
+<p className="mt-4 whitespace-pre-line rounded-2xl border border-white/10 bg-black/30 p-4 text-sm leading-6 text-white/60">
+  {output.content}
+</p>
         <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
   <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50">
     {output.status}
