@@ -10,6 +10,16 @@ type Task = {
   status: string;
   created_at?: string;
 };
+type EmployeeOutput = {
+  id?: string;
+  employee: string;
+  title: string;
+  content: string;
+  status: string;
+  type?: string;
+  createdAt?: string;
+  created_at?: string;
+};
 const employees = [
   {
     name: "Project Manager",
@@ -70,7 +80,7 @@ export default function DashboardPage() {
   const [tasks, setTasks] = useState(initialTasks);
   const [isLoadingTasks, setIsLoadingTasks] = useState(true);
   const [taskError, setTaskError] = useState("");
-  const [employeeOutputs, setEmployeeOutputs] = useState([
+  const [employeeOutputs, setEmployeeOutputs] = useState<EmployeeOutput[]>([
   {
     employee: "Project Manager",
     title: "Company setup plan",
@@ -243,8 +253,34 @@ setTaskError("");
       setTasks(data);
     }
   }
+async function loadOutputs() {
+  const { data, error } = await supabase
+    .from("outputs")
+    .select("*")
+    .order("created_at", { ascending: false });
 
+  if (error) {
+    console.warn("Could not load outputs:", error);
+    return;
+  }
+
+  if (data && data.length > 0) {
+    setEmployeeOutputs(
+      data.map((output) => ({
+        id: output.id,
+        employee: output.employee,
+        title: output.title,
+        content: output.content,
+        status: output.status,
+        type: output.type,
+        createdAt: "Saved",
+        created_at: output.created_at,
+      })),
+    );
+  }
+}
   loadTasks();
+  loadOutputs();
 }, []);
 const latestTask = tasks[0];
 
@@ -419,11 +455,36 @@ if (!outputResponse.ok) {
   return;
 }
 
+const outputToSave = {
+  employee: generatedOutput.employee,
+  title: generatedOutput.title,
+  content: generatedOutput.content,
+  status: generatedOutput.status,
+  type: getOutputType(selectedEmployee),
+};
+
+const { data: savedOutput, error: outputSaveError } = await supabase
+  .from("outputs")
+  .insert(outputToSave)
+  .select()
+  .single();
+
+if (outputSaveError) {
+  alert(outputSaveError.message);
+  console.error(outputSaveError);
+  return;
+}
+
 setEmployeeOutputs([
   {
-    ...generatedOutput,
-    type: getOutputType(selectedEmployee),
+    id: savedOutput.id,
+    employee: savedOutput.employee,
+    title: savedOutput.title,
+    content: savedOutput.content,
+    status: savedOutput.status,
+    type: savedOutput.type,
     createdAt: "Just now",
+    created_at: savedOutput.created_at,
   },
   ...employeeOutputs,
 ]);
@@ -833,7 +894,31 @@ setTaskInput("");
 <button
   type="button"
   onClick={async () => {
-    setEmployeeOutputs(
+    if (output.id) {
+  const { error } = await supabase
+    .from("outputs")
+    .update({ status: "Approved" })
+    .eq("id", output.id);
+
+  if (error) {
+    alert(error.message);
+    console.error(error);
+    return;
+  }
+}
+if (output.id) {
+  const { error } = await supabase
+    .from("outputs")
+    .update({ status: "Needs changes" })
+    .eq("id", output.id);
+
+  if (error) {
+    alert(error.message);
+    console.error(error);
+    return;
+  }
+}    
+setEmployeeOutputs(
       employeeOutputs.map((currentOutput, outputIndex) =>
         outputIndex === index
           ? { ...currentOutput, status: "Approved" }
@@ -917,7 +1002,16 @@ setTaskInput("");
 </button>
 <button
   type="button"
-  onClick={() => {
+  onClick={async () => {
+ if (output.id) {
+  const { error } = await supabase.from("outputs").delete().eq("id", output.id);
+
+  if (error) {
+    alert(error.message);
+    console.error(error);
+    return;
+  }
+}   
     setEmployeeOutputs(
       employeeOutputs.filter((_, outputIndex) => outputIndex !== index),
     );
