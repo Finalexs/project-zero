@@ -56,6 +56,13 @@ const initialTasks: Task[] = [
 
 export default function DashboardPage() {
   const [taskInput, setTaskInput] = useState("");
+  const [commandHistory, setCommandHistory] = useState([
+  {
+    command: "Create a launch plan for Project Zero",
+    employee: "Project Manager",
+    time: "Starter command",
+  },
+]);
   const [selectedEmployee, setSelectedEmployee] = useState("Project Manager");
   const [dashboardMode, setDashboardMode] = useState<"founder" | "builder">(
   "founder",
@@ -308,6 +315,14 @@ setActivity([
     time: "Just now",
   },
   ...activity,
+]);
+setCommandHistory([
+  {
+    command: data.title,
+    employee: selectedEmployee,
+    time: "Just now",
+  },
+  ...commandHistory,
 ]);
 setEmployeeOutputs([
   {
@@ -634,6 +649,44 @@ setTaskInput("");
     </div>
   ))}
 </div>
+</section>
+<section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+  <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+    <div>
+      <p className="text-sm text-blue-300/70">Command history</p>
+      <h2 className="mt-1 text-2xl font-bold">
+        Recent instructions given to your AI company.
+      </h2>
+      <p className="mt-2 text-sm text-white/50">
+        Every command becomes part of the company context, so the system can
+        understand what work has been requested.
+      </p>
+    </div>
+
+    <span className="rounded-full border border-blue-400/20 bg-blue-400/[0.04] px-3 py-1 text-xs text-blue-300">
+      {commandHistory.length} commands
+    </span>
+  </div>
+
+  <div className="mt-6 space-y-3">
+    {commandHistory.map((item, index) => (
+      <div
+        key={`${item.command}-${index}`}
+        className="rounded-2xl border border-white/10 bg-black/40 p-4"
+      >
+        <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="text-sm font-semibold">{item.command}</p>
+            <p className="mt-1 text-xs text-white/40">
+              Assigned to {item.employee}
+            </p>
+          </div>
+
+          <span className="text-xs text-white/30">{item.time}</span>
+        </div>
+      </div>
+    ))}
+  </div>
 </section>
 <section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
   <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
