@@ -364,10 +364,10 @@ const companyScore = Math.min(
   if (!taskInput) return;
 
   const newTask = {
-    title: taskInput,
-    employee: selectedEmployee,
-    status: "New",
-  };
+  title: taskInput,
+  employee: selectedEmployee,
+  status: "Waiting for approval",
+};
 
   const { data, error } = await supabase
     .from("tasks")
@@ -830,53 +830,110 @@ setTaskInput("");
   </span>
 
   <div className="flex gap-2">
-    <button
-      type="button"
-      onClick={() => {
-  setEmployeeOutputs(
-    employeeOutputs.map((currentOutput, outputIndex) =>
-      outputIndex === index
-        ? { ...currentOutput, status: "Approved" }
-        : currentOutput,
-    ),
-  );
+<button
+  type="button"
+  onClick={async () => {
+    setEmployeeOutputs(
+      employeeOutputs.map((currentOutput, outputIndex) =>
+        outputIndex === index
+          ? { ...currentOutput, status: "Approved" }
+          : currentOutput,
+      ),
+    );
 
-  setActivity([
-    {
-      message: `${output.employee} output approved: "${output.title}"`,
-      time: "Just now",
-    },
-    ...activity,
-  ]);
-}}
-      className="rounded-full border border-green-400/20 px-3 py-1 text-xs text-green-300 hover:text-green-200"
-    >
-      Approve
-    </button>
+    setActivity([
+      {
+        message: `${output.employee} output approved: "${output.title}"`,
+        time: "Just now",
+      },
+      ...activity,
+    ]);
 
-    <button
-      type="button"
-     onClick={() => {
-  setEmployeeOutputs(
-    employeeOutputs.map((currentOutput, outputIndex) =>
-      outputIndex === index
-        ? { ...currentOutput, status: "Needs changes" }
-        : currentOutput,
-    ),
-  );
+    const matchingTask = tasks.find((task) =>
+      output.title.includes(task.title),
+    );
 
-  setActivity([
-    {
-      message: `${output.employee} output needs changes: "${output.title}"`,
-      time: "Just now",
-    },
-    ...activity,
-  ]);
-}}
-      className="rounded-full border border-yellow-400/20 px-3 py-1 text-xs text-yellow-300 hover:text-yellow-200"
-    >
-      Needs changes
-    </button>
+    if (matchingTask) {
+      await supabase
+        .from("tasks")
+        .update({ status: "Approved" })
+        .eq("id", matchingTask.id);
+
+      setTasks(
+        tasks.map((task) =>
+          task.id === matchingTask.id
+            ? { ...task, status: "Approved" }
+            : task,
+        ),
+      );
+    }
+  }}
+  className="rounded-full border border-green-400/20 px-3 py-1 text-xs text-green-300 hover:bg-green-400/[0.06]"
+>
+  Approve
+</button>
+
+<button
+  type="button"
+  onClick={async () => {
+    setEmployeeOutputs(
+      employeeOutputs.map((currentOutput, outputIndex) =>
+        outputIndex === index
+          ? { ...currentOutput, status: "Needs changes" }
+          : currentOutput,
+      ),
+    );
+
+    setActivity([
+      {
+        message: `${output.employee} output needs changes: "${output.title}"`,
+        time: "Just now",
+      },
+      ...activity,
+    ]);
+
+    const matchingTask = tasks.find((task) =>
+      output.title.includes(task.title),
+    );
+
+    if (matchingTask) {
+      await supabase
+        .from("tasks")
+        .update({ status: "Needs changes" })
+        .eq("id", matchingTask.id);
+
+      setTasks(
+        tasks.map((task) =>
+          task.id === matchingTask.id
+            ? { ...task, status: "Needs changes" }
+            : task,
+        ),
+      );
+    }
+  }}
+  className="rounded-full border border-yellow-400/20 px-3 py-1 text-xs text-yellow-300 hover:bg-yellow-400/[0.06]"
+>
+  Needs changes
+</button>
+<button
+  type="button"
+  onClick={() => {
+    setEmployeeOutputs(
+      employeeOutputs.filter((_, outputIndex) => outputIndex !== index),
+    );
+
+    setActivity([
+      {
+        message: `${output.employee} output deleted: "${output.title}"`,
+        time: "Just now",
+      },
+      ...activity,
+    ]);
+  }}
+  className="rounded-full border border-red-400/20 px-3 py-1 text-xs text-red-300 hover:bg-red-400/[0.06]"
+>
+  Delete
+</button>
   </div>
 </div>
       </div>
