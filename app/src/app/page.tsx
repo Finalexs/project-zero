@@ -236,6 +236,83 @@ Not another workflow.
       shared memory, and simple controls for non-technical users.
     </p>
   </div>
+  <div className="mt-24 w-full rounded-3xl border border-purple-400/20 bg-purple-400/[0.03] p-8 text-left">
+  <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+    <div>
+      <p className="text-sm text-purple-300/70">Tools and integrations</p>
+      <h2 className="mt-3 text-4xl font-bold tracking-tight">
+        AI employees should not only think.
+        <br />
+        They should safely use tools.
+      </h2>
+      <p className="mt-5 text-white/55">
+        Project Zero is built around the idea that AI employees can draft,
+        research, organize, and eventually connect to the tools your business
+        already uses — with approval controls before important actions happen.
+      </p>
+    </div>
+
+    <div className="grid gap-4 md:grid-cols-2">
+      <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+        <p className="text-sm text-white/40">Communication</p>
+        <h3 className="mt-2 font-semibold">Email and messages</h3>
+        <p className="mt-2 text-sm leading-6 text-white/50">
+          Draft replies, prepare outreach, summarize conversations, and keep
+          customers updated.
+        </p>
+      </div>
+
+      <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+        <p className="text-sm text-white/40">Marketing</p>
+        <h3 className="mt-2 font-semibold">Content and campaigns</h3>
+        <p className="mt-2 text-sm leading-6 text-white/50">
+          Plan social posts, write landing page copy, create campaign ideas, and
+          review messaging.
+        </p>
+      </div>
+
+      <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+        <p className="text-sm text-white/40">Operations</p>
+        <h3 className="mt-2 font-semibold">Tasks and workflows</h3>
+        <p className="mt-2 text-sm leading-6 text-white/50">
+          Turn business goals into tasks, assign employees, track progress, and
+          keep work organized.
+        </p>
+      </div>
+
+      <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+        <p className="text-sm text-white/40">Builder Mode</p>
+        <h3 className="mt-2 font-semibold">Webhooks and APIs</h3>
+        <p className="mt-2 text-sm leading-6 text-white/50">
+          Advanced users can later connect custom automations, triggers, data,
+          and tools behind the AI company interface.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div className="mt-8 flex flex-wrap gap-3">
+    {[
+      "Gmail",
+      "Slack",
+      "Notion",
+      "Google Calendar",
+      "Webhooks",
+      "CRM",
+      "Files",
+      "Website",
+      "Analytics",
+      "Forms",
+    ].map((tool) => (
+      <span
+        key={tool}
+        className="rounded-full border border-white/10 bg-black/40 px-4 py-2 text-sm text-white/60"
+      >
+        {tool}
+      </span>
+    ))}
+  </div>
+</div>
 
   <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
     <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
