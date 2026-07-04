@@ -386,15 +386,29 @@ setCommandHistory([
   },
   ...commandHistory,
 ]);
-setEmployeeOutputs([
-  {
-    employee: selectedEmployee,
-    title: data.title,
-    status: "Draft",
-    content: `${selectedEmployee} is preparing work for ${businessProfile.name}. This task is connected to your goal: "${businessProfile.goal}".`,
+const outputResponse = await fetch("/api/generate-output", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
   },
-  ...employeeOutputs,
-]);
+  body: JSON.stringify({
+    task: data.title,
+    employee: selectedEmployee,
+    businessName: businessProfile.name,
+    industry: businessProfile.industry,
+    targetCustomer: businessProfile.customer,
+    mainGoal: businessProfile.goal,
+  }),
+});
+
+const generatedOutput = await outputResponse.json();
+
+if (!outputResponse.ok) {
+  alert(generatedOutput.error ?? "Could not generate employee output.");
+  return;
+}
+
+setEmployeeOutputs([generatedOutput, ...employeeOutputs]);
 setTaskInput("");
 }}
   className="rounded-2xl bg-white px-6 py-3 font-semibold text-black"
