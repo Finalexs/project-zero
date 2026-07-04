@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
+import FinalCtaSection from "@/components/FinalCtaSection";
 export default function Home() {
   const [joinedWaitlist, setJoinedWaitlist] = useState(false);
   const [email, setEmail] = useState("");
@@ -761,6 +762,7 @@ Not another workflow.
   </div>
 </footer>
       </section>
+      <FinalCtaSection />
     </main>
   );
 }
