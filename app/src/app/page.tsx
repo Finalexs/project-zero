@@ -225,6 +225,56 @@ Not another workflow.
       employees, memory, tools, and review steps.
     </p>
   </div>
+  <div className="mt-24 w-full rounded-3xl border border-white/10 bg-white/[0.03] p-8 text-left">
+  <div className="text-center">
+    <p className="text-sm text-green-300/70">Why trust it</p>
+    <h2 className="mt-3 text-4xl font-bold tracking-tight">
+      Built for real work, not just AI demos.
+    </h2>
+    <p className="mx-auto mt-4 max-w-2xl text-white/55">
+      Project Zero is designed around useful business outcomes, human approval,
+      shared memory, and simple controls for non-technical users.
+    </p>
+  </div>
+
+  <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+      <p className="text-3xl font-bold text-green-300">Live</p>
+      <h3 className="mt-3 font-semibold">Working MVP</h3>
+      <p className="mt-2 text-sm leading-6 text-white/50">
+        The product already has a live deployed site, dashboard, and real
+        database-backed waitlist.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+      <p className="text-3xl font-bold text-blue-300">DB</p>
+      <h3 className="mt-3 font-semibold">Real data layer</h3>
+      <p className="mt-2 text-sm leading-6 text-white/50">
+        Tasks and waitlist entries are stored in Supabase instead of only living
+        in a temporary demo.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+      <p className="text-3xl font-bold text-purple-300">Safe</p>
+      <h3 className="mt-3 font-semibold">Human review first</h3>
+      <p className="mt-2 text-sm leading-6 text-white/50">
+        AI employees create drafts and task outputs that users can approve or
+        send back for changes.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+      <p className="text-3xl font-bold text-white">2 modes</p>
+      <h3 className="mt-3 font-semibold">Simple and advanced</h3>
+      <p className="mt-2 text-sm leading-6 text-white/50">
+        Founder Mode keeps the product simple. Builder Mode gives power users
+        more control.
+      </p>
+    </div>
+  </div>
+</div>
 
   <div className="mt-10 grid gap-4 lg:grid-cols-4">
     <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
