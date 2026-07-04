@@ -109,6 +109,68 @@ const employeeOptions = [
   "Developer",
   "SEO Specialist",
 ];
+const employeeProfiles = [
+  {
+    name: "Project Manager",
+    role: "Coordinates the AI company and turns goals into organized tasks.",
+    skills: ["Planning", "Delegation", "Prioritization", "Review"],
+    focus: "Breaking business goals into clear work for the team.",
+    bestFor: "Planning launches, organizing projects, assigning tasks.",
+  },
+  {
+    name: "Researcher",
+    role: "Finds useful information, market insights, competitors, and ideas.",
+    skills: ["Research", "Competitor analysis", "Summaries", "Market insights"],
+    focus: "Finding the information your company needs before acting.",
+    bestFor: "Competitor research, customer research, market analysis.",
+  },
+  {
+    name: "Writer",
+    role: "Creates content, emails, landing page copy, and marketing drafts.",
+    skills: ["Copywriting", "Emails", "Content", "Messaging"],
+    focus: "Turning ideas into clear written output.",
+    bestFor: "Emails, website copy, social posts, scripts, offers.",
+  },
+  {
+    name: "QA",
+    role: "Reviews work before it gets approved or used.",
+    skills: ["Review", "Quality control", "Risk spotting", "Clarity"],
+    focus: "Checking outputs before humans approve them.",
+    bestFor: "Reviewing drafts, improving quality, finding mistakes.",
+  },
+  {
+    name: "Sales Rep",
+    role: "Finds leads, writes outreach, and helps convert customers.",
+    skills: ["Lead ideas", "Outreach", "Sales messaging", "Follow-ups"],
+    focus: "Helping the business get conversations with customers.",
+    bestFor: "Cold emails, customer lists, follow-ups, offer angles.",
+  },
+  {
+    name: "Designer",
+    role: "Helps with visual direction, layouts, brand ideas, and UI feedback.",
+    skills: ["UI ideas", "Branding", "Layout", "Visual review"],
+    focus: "Making the product and content look more polished.",
+    bestFor: "Landing pages, dashboards, brand concepts, design feedback.",
+  },
+  {
+    name: "Developer",
+    role: "Helps build software, tools, automations, and technical systems.",
+    skills: ["Code", "Debugging", "Architecture", "Automation"],
+    focus: "Turning product ideas into working software.",
+    bestFor: "Features, bug fixes, APIs, integrations, technical planning.",
+  },
+  {
+    name: "SEO Specialist",
+    role: "Improves search visibility and helps create content people can find.",
+    skills: ["Keywords", "SEO content", "Search intent", "Optimization"],
+    focus: "Helping the business get discovered through search.",
+    bestFor: "Blog ideas, keyword plans, SEO landing pages.",
+  },
+];
+
+const selectedEmployeeProfile =
+  employeeProfiles.find((employee) => employee.name === selectedEmployee) ??
+  employeeProfiles[0];
 const taskTemplates = [
   {
     title: "Create a 7-day marketing plan",
@@ -888,6 +950,51 @@ setTaskInput("");
             </div>
           </div>
         </section>
+        <section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+  <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+    <div>
+      <p className="text-sm text-purple-300/70">Selected employee</p>
+      <h2 className="mt-1 text-2xl font-bold">{selectedEmployeeProfile.name}</h2>
+      <p className="mt-2 max-w-2xl text-sm text-white/50">
+        {selectedEmployeeProfile.role}
+      </p>
+    </div>
+
+    <span className="rounded-full border border-purple-400/20 bg-purple-400/[0.04] px-3 py-1 text-xs text-purple-300">
+      Active profile
+    </span>
+  </div>
+
+  <div className="mt-6 grid gap-4 md:grid-cols-3">
+    <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+      <p className="text-sm text-white/40">Current focus</p>
+      <p className="mt-2 text-sm leading-6 text-white/70">
+        {selectedEmployeeProfile.focus}
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+      <p className="text-sm text-white/40">Best for</p>
+      <p className="mt-2 text-sm leading-6 text-white/70">
+        {selectedEmployeeProfile.bestFor}
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+      <p className="text-sm text-white/40">Skills</p>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {selectedEmployeeProfile.skills.map((skill) => (
+          <span
+            key={skill}
+            className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs text-white/60"
+          >
+            {skill}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
       </div>
     </main>
   );
