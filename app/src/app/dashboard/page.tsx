@@ -20,7 +20,15 @@ type EmployeeOutput = {
   createdAt?: string;
   created_at?: string;
 };
+type CommandHistoryItem = {
+  id?: string;
+  command: string;
+  employee: string;
+  time: string;
+  created_at?: string;
+};
 const employees = [
+
   {
     name: "Project Manager",
     status: "Online",
@@ -66,7 +74,7 @@ const initialTasks: Task[] = [
 
 export default function DashboardPage() {
   const [taskInput, setTaskInput] = useState("");
-  const [commandHistory, setCommandHistory] = useState([
+  const [commandHistory, setCommandHistory] = useState<CommandHistoryItem[]>([
   {
     command: "Create a launch plan for Project Zero",
     employee: "Project Manager",
@@ -279,8 +287,32 @@ async function loadOutputs() {
     );
   }
 }
+async function loadCommandHistory() {
+  const { data, error } = await supabase
+    .from("command_history")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.warn("Could not load command history:", error);
+    return;
+  }
+
+  if (data && data.length > 0) {
+    setCommandHistory(
+      data.map((item) => ({
+        id: item.id,
+        command: item.command,
+        employee: item.employee,
+        time: "Saved",
+        created_at: item.created_at,
+      })),
+    );
+  }
+}
   loadTasks();
   loadOutputs();
+  loadCommandHistory();
 }, []);
 const latestTask = tasks[0];
 
@@ -425,11 +457,30 @@ setActivity([
   },
   ...activity,
 ]);
+const commandToSave = {
+  command: data.title,
+  employee: selectedEmployee,
+};
+
+const { data: savedCommand, error: commandSaveError } = await supabase
+  .from("command_history")
+  .insert(commandToSave)
+  .select()
+  .single();
+
+if (commandSaveError) {
+  alert(commandSaveError.message);
+  console.error(commandSaveError);
+  return;
+}
+
 setCommandHistory([
   {
-    command: data.title,
-    employee: selectedEmployee,
+    id: savedCommand.id,
+    command: savedCommand.command,
+    employee: savedCommand.employee,
     time: "Just now",
+    created_at: savedCommand.created_at,
   },
   ...commandHistory,
 ]);
