@@ -103,6 +103,7 @@ export default function DashboardPage() {
 ]);
 const [outputFilter, setOutputFilter] = useState<OutputFilter>("All");
 const [isOutputsOpen, setIsOutputsOpen] = useState(true);
+const [isTasksOpen, setIsTasksOpen] = useState(true);
   const [activity, setActivity] = useState([
   {
     message: "Project Manager created a new task queue.",
@@ -1381,8 +1382,18 @@ This output was regenerated after the previous draft was marked as needing chang
             </div>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-            <h2 className="text-2xl font-bold">Tasks</h2>
+          <div className="self-start rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+            <div className="flex items-center justify-between gap-4">
+  <h2 className="text-2xl font-bold">Tasks</h2>
+
+  <button
+    type="button"
+    onClick={() => setIsTasksOpen(!isTasksOpen)}
+    className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50 hover:bg-white/[0.04] hover:text-white"
+  >
+    {isTasksOpen ? "Hide tasks" : "Show tasks"}
+  </button>
+</div>
 
            <div className="mt-6 space-y-4">
   {isLoadingTasks && (
@@ -1396,7 +1407,8 @@ This output was regenerated after the previous draft was marked as needing chang
       No tasks yet. Assign your first task above.
     </div>
   )}
-
+{isTasksOpen && (
+  <div className="mt-6 space-y-4">
   {tasks.map((task, index) => (
                 <div
                   key={task.id}
@@ -1471,6 +1483,13 @@ This output was regenerated after the previous draft was marked as needing chang
                   </div>
                 </div>
               ))}
+                </div>
+)}
+{!isTasksOpen && (
+  <div className="mt-6 rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
+    Tasks are hidden. Click “Show tasks” to view assigned work and update progress.
+  </div>
+)}
             </div>
           </div>
         </section>
