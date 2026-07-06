@@ -28,6 +28,9 @@ type CommandHistoryItem = {
   time: string;
   created_at?: string;
 };
+
+type OutputFilter = "All" | "Draft" | "Approved" | "Needs changes";
+
 const employees = [
 
   {
@@ -98,6 +101,7 @@ export default function DashboardPage() {
       "Your AI company is ready. Start by defining your business goal, assigning tasks, and reviewing employee outputs.",
   },
 ]);
+const [outputFilter, setOutputFilter] = useState<OutputFilter>("All");
   const [activity, setActivity] = useState([
   {
     message: "Project Manager created a new task queue.",
@@ -323,6 +327,10 @@ async function loadCommandHistory() {
   loadOutputs();
   loadCommandHistory();
 }, []);
+const filteredEmployeeOutputs =
+  outputFilter === "All"
+    ? employeeOutputs
+    : employeeOutputs.filter((output) => output.status === outputFilter);
 const latestTask = tasks[0];
 
 const memoryItems = [
@@ -912,13 +920,33 @@ setTaskInput("");
       <h2 className="mt-1 text-2xl font-bold">Work produced by your AI company</h2>
     </div>
 
-    <span className="rounded-full border border-blue-400/20 px-3 py-1 text-xs text-blue-300">
-      Drafts
-    </span>
+    <div className="flex flex-wrap gap-2">
+  {(["All", "Draft", "Approved", "Needs changes"] as OutputFilter[]).map(
+    (filter) => (
+      <button
+        key={filter}
+        type="button"
+        onClick={() => setOutputFilter(filter)}
+        className={`rounded-full border px-3 py-1 text-xs ${
+          outputFilter === filter
+            ? "border-blue-400/40 bg-blue-400/[0.08] text-blue-300"
+            : "border-white/10 text-white/40 hover:bg-white/[0.04] hover:text-white"
+        }`}
+      >
+        {filter}
+      </button>
+    ),
+  )}
+</div>
   </div>
 
   <div className="mt-6 grid gap-4 md:grid-cols-2">
-    {employeeOutputs.map((output, index) => (
+    {filteredEmployeeOutputs.length === 0 && (
+  <div className="rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
+    No outputs found for this filter.
+  </div>
+)}
+    {filteredEmployeeOutputs.map((output, index) => (
       <div
         key={`${output.employee}-${output.title}-${index}`}
         className="rounded-2xl border border-white/10 bg-black/40 p-5"
