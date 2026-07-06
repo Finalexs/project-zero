@@ -531,10 +531,12 @@ const companyScore = Math.min(
       <h2 className="mt-1 text-2xl font-bold">
         See what needs your attention.
       </h2>
-      <p className="mt-2 max-w-2xl text-sm text-white/50">
-        Track drafts, requested changes, approved work, and open tasks from one
-        place before moving work forward.
-      </p>
+      {isReviewQueueOpen && (
+  <p className="mt-2 max-w-2xl text-sm text-white/50">
+    Track drafts, requested changes, approved work, and open tasks from one
+    place before moving work forward.
+  </p>
+)}
     </div>
 
     <div className="flex flex-wrap items-center gap-2">
@@ -588,8 +590,8 @@ const companyScore = Math.min(
   )}
   {!isReviewQueueOpen && (
   <div className="mt-6 rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
-    Review queue is hidden. Click “Show queue” to view drafts, requested
-    changes, approved work, and open tasks.
+    Queue hidden. Click “Show queue” to view drafts, changes, approvals, and
+    open tasks.
   </div>
 )}
 </section>
@@ -746,10 +748,12 @@ setTaskInput("");
       <h2 className="mt-1 text-2xl font-bold">
         Start with proven business tasks.
       </h2>
-      <p className="mt-2 text-sm text-white/50">
-        Choose a template and Project Zero will assign it to the right AI
-        employee. You can still edit the task before assigning it.
-      </p>
+      {isQuickStartOpen && (
+  <p className="mt-2 text-sm text-white/50">
+    Choose a template and Project Zero will assign it to the right AI
+    employee. You can still edit the task before assigning it.
+  </p>
+)}
     </div>
 
     <div className="flex flex-wrap items-center gap-2">
@@ -803,11 +807,10 @@ setTaskInput("");
   )}
 
   {!isQuickStartOpen && (
-    <div className="mt-6 rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
-      Quick start templates are hidden. Click “Show templates” to pick a proven
-      business task.
-    </div>
-  )}
+  <div className="mt-6 rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
+    Templates hidden. Click “Show templates” to pick a proven business task.
+  </div>
+)}
 </section>
 {dashboardMode === "builder" && (
   <section className="mt-6 rounded-3xl border border-purple-400/20 bg-purple-400/[0.04] p-6">
@@ -866,10 +869,12 @@ setTaskInput("");
       <h2 className="mt-2 text-3xl font-bold">
         Teach your AI company what you are building.
       </h2>
-      <p className="mt-3 max-w-2xl text-sm text-white/50">
-        Project Zero uses your business context to assign better tasks to the
-        right AI employees.
-      </p>
+      {isBusinessProfileOpen && (
+  <p className="mt-2 text-sm text-white/50">
+    Project Zero uses your business context to assign better tasks to the right
+    AI employees.
+  </p>
+)}
     </div>
 
     <div className="flex flex-wrap items-center gap-2">
@@ -951,8 +956,7 @@ setTaskInput("");
   )}
   {!isBusinessProfileOpen && (
   <div className="mt-6 rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
-    Business profile is hidden. Click “Show profile” to edit company context,
-    target customers, industry, and main goal.
+    Profile hidden. Click “Show profile” to edit company context.
   </div>
 )}
 </section>
@@ -1084,9 +1088,11 @@ setTaskInput("");
   <div className="pr-40">
     <p className="text-sm text-white/40">Activity</p>
     <h2 className="mt-1 text-2xl font-bold">Company timeline</h2>
-    <p className="mt-2 text-sm text-white/50">
-      See what your AI company has done recently.
-    </p>
+    {isActivityOpen && (
+  <p className="mt-2 text-sm text-white/50">
+    See what your AI company has done recently.
+  </p>
+)}
   </div>
 
   <div className="absolute right-6 top-6 flex flex-wrap items-center gap-2">
@@ -1128,7 +1134,7 @@ setTaskInput("");
 )}
 {!isActivityOpen && (
   <div className="mt-6 rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
-    Activity is hidden. Click “Show activity” to view recent AI company events.
+    Activity hidden. Click “Show activity” to view recent events.
   </div>
 )}
 </div>
@@ -1140,10 +1146,12 @@ setTaskInput("");
     <h2 className="mt-1 text-2xl font-bold">
       Recent instructions given to your AI company.
     </h2>
-    <p className="mt-2 text-sm text-white/50">
-      Every command becomes part of the company context, so the system can
-      understand what work has been requested.
-    </p>
+    {isCommandHistoryOpen && (
+  <p className="mt-2 text-sm text-white/50">
+    Every command becomes part of the company context, so the system can
+    understand what work has been requested.
+  </p>
+)}
   </div>
 
   <div className="flex flex-wrap items-center gap-2">
@@ -1185,8 +1193,7 @@ setTaskInput("");
 
 {!isCommandHistoryOpen && (
   <div className="mt-6 rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
-    Command history is hidden. Click “Show history” to view previous tasks and
-    assignments.
+    History hidden. Click “Show history” to view previous instructions.
   </div>
 )}
 </section>
