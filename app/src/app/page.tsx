@@ -80,13 +80,14 @@ export default function Home() {
         </div>
 
         <h1 className="max-w-4xl text-5xl font-bold tracking-tight sm:text-7xl">
-          Build an AI Company.
-Not another workflow.
+          AI shouldn&apos;t just answer.
+<br />
+It should get work done.
         </h1>
 
         <p className="mt-6 max-w-2xl text-lg text-white/60 sm:text-xl">
-          Build an AI company made of digital employees that research, write,
-          review, and execute work for your business.
+          Use digital AI employees to complete tasks, create drafts, research ideas,
+review work, and help your business move faster — while you stay in control.
         </p>
 
 <div className="mt-10 flex flex-col gap-4 sm:flex-row">
