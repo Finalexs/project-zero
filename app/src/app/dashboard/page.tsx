@@ -106,6 +106,7 @@ const [isOutputsOpen, setIsOutputsOpen] = useState(true);
 const [isTasksOpen, setIsTasksOpen] = useState(true);
 const [isCommandHistoryOpen, setIsCommandHistoryOpen] = useState(true);
 const [isActivityOpen, setIsActivityOpen] = useState(true);
+const [isCompanyMemoryOpen, setIsCompanyMemoryOpen] = useState(true);
   const [activity, setActivity] = useState([
   {
     message: "Project Manager created a new task queue.",
@@ -896,25 +897,41 @@ setTaskInput("");
   </p>
 </div>
         </section>
-<section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+<section className="relative mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
   <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-    <div>
-      <p className="text-sm text-white/40">Company memory</p>
-      <h2 className="mt-1 text-2xl font-bold">
-        What your AI company knows.
-      </h2>
-      <p className="mt-2 max-w-2xl text-sm text-white/50">
-        Project Zero uses this context to help employees understand your
-        business before doing work.
-      </p>
-    </div>
+    <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+  <div>
+    <p className="text-sm text-white/40">Company memory</p>
+    <h2 className="mt-1 text-2xl font-bold">
+      What your AI company remembers.
+    </h2>
+    <p className="mt-2 text-sm text-white/50">
+      Business context helps your AI employees understand the company before
+      creating work.
+    </p>
+  </div>
 
-    <span className="rounded-full border border-purple-400/20 px-3 py-1 text-xs text-purple-300">
-      Shared context
-    </span>
+ 
+</div>
+
+   <div className="absolute right-6 top-6 flex flex-wrap items-center gap-2">
+  <span className="rounded-full border border-purple-400/20 px-3 py-1 text-xs text-purple-300">
+    Shared context
+  </span>
+
+  <button
+    type="button"
+    onClick={() => setIsCompanyMemoryOpen(!isCompanyMemoryOpen)}
+    className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50 hover:bg-white/[0.04] hover:text-white"
+  >
+    {isCompanyMemoryOpen ? "Hide memory" : "Show memory"}
+  </button>
+</div>
   </div>
 
   <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    {isCompanyMemoryOpen && (
+  <div className="mt-6 grid gap-4 md:grid-cols-2">
     {memoryItems.map((item) => (
       <div
         key={item.label}
@@ -926,6 +943,14 @@ setTaskInput("");
         <p className="mt-2 text-sm leading-6 text-white/70">{item.value}</p>
       </div>
     ))}
+      </div>
+)}
+{!isCompanyMemoryOpen && (
+  <div className="mt-6 rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
+    Company memory is hidden. Click “Show memory” to view business context,
+    goals, and latest task memory.
+  </div>
+)}
   </div>
 </section>
 <section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
