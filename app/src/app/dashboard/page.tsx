@@ -113,6 +113,8 @@ const [isQuickStartOpen, setIsQuickStartOpen] = useState(true);
 const [isHowItWorksOpen, setIsHowItWorksOpen] = useState(true);
 const [isEmployeesOpen, setIsEmployeesOpen] = useState(true);
 const [isEmployeeProfileOpen, setIsEmployeeProfileOpen] = useState(true);
+const [isHealthScoreOpen, setIsHealthScoreOpen] = useState(true);
+const [isBuilderControlsOpen, setIsBuilderControlsOpen] = useState(true);
   const [activity, setActivity] = useState([
   {
     message: "Project Manager created a new task queue.",
@@ -816,52 +818,73 @@ setTaskInput("");
 </section>
 {dashboardMode === "builder" && (
   <section className="mt-6 rounded-3xl border border-purple-400/20 bg-purple-400/[0.04] p-6">
-    <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
       <div>
         <p className="text-sm text-purple-300/70">Builder Mode</p>
         <h2 className="mt-1 text-2xl font-bold">
           Advanced company controls.
         </h2>
-        <p className="mt-2 max-w-2xl text-sm text-white/50">
-          Builder Mode is for advanced users who want more control over AI
-          employees, tools, automations, and memory.
-        </p>
+
+        {isBuilderControlsOpen && (
+          <p className="mt-2 max-w-2xl text-sm text-white/50">
+            Builder Mode is for advanced users who want more control over AI
+            employees, tools, automations, and memory.
+          </p>
+        )}
       </div>
 
-      <span className="rounded-full border border-purple-400/20 px-3 py-1 text-xs text-purple-300">
-        Power user
-      </span>
-    </div>
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="rounded-full border border-purple-400/20 px-3 py-1 text-xs text-purple-300">
+          Power user
+        </span>
 
-    <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-      <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
-        <p className="text-sm font-semibold">Employee tools</p>
-        <p className="mt-2 text-sm text-white/50">
-          Choose what tools each AI employee can use.
-        </p>
-      </div>
-
-      <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
-        <p className="text-sm font-semibold">Automation triggers</p>
-        <p className="mt-2 text-sm text-white/50">
-          Start work from forms, emails, webhooks, or schedules.
-        </p>
-      </div>
-
-      <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
-        <p className="text-sm font-semibold">Company memory</p>
-        <p className="mt-2 text-sm text-white/50">
-          Control what the AI company remembers.
-        </p>
-      </div>
-
-      <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
-        <p className="text-sm font-semibold">Approval rules</p>
-        <p className="mt-2 text-sm text-white/50">
-          Decide what actions need human approval.
-        </p>
+        <button
+          type="button"
+          onClick={() => setIsBuilderControlsOpen(!isBuilderControlsOpen)}
+          className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50 hover:bg-white/[0.04] hover:text-white"
+        >
+          {isBuilderControlsOpen ? "Hide controls" : "Show controls"}
+        </button>
       </div>
     </div>
+
+    {isBuilderControlsOpen && (
+      <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+          <p className="font-semibold">Tool access</p>
+          <p className="mt-2 text-sm text-white/50">
+            Choose what tools each AI employee can use.
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+          <p className="font-semibold">Automation rules</p>
+          <p className="mt-2 text-sm text-white/50">
+            Control what happens after tasks, outputs, and approvals.
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+          <p className="font-semibold">Memory rules</p>
+          <p className="mt-2 text-sm text-white/50">
+            Decide what the AI company remembers and uses later.
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+          <p className="font-semibold">Webhooks and APIs</p>
+          <p className="mt-2 text-sm text-white/50">
+            Connect Project Zero to external apps and workflows.
+          </p>
+        </div>
+      </div>
+    )}
+
+    {!isBuilderControlsOpen && (
+      <div className="mt-4 rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white/50">
+        Builder controls hidden.
+      </div>
+    )}
   </section>
 )}
 <section className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
@@ -1038,52 +1061,75 @@ setTaskInput("");
   </div>
 </section>
 <section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-  <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+  <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
     <div>
       <p className="text-sm text-white/40">Company health</p>
       <h2 className="mt-1 text-2xl font-bold">
         Your AI company progress score.
       </h2>
-      <p className="mt-2 max-w-2xl text-sm text-white/50">
-        This score increases when your business profile is complete, tasks are
-        created, tasks are completed, and employee outputs are approved.
-      </p>
+
+      {isHealthScoreOpen && (
+        <p className="mt-2 max-w-2xl text-sm text-white/50">
+          This score increases when your business profile is complete, tasks are
+          created, tasks are completed, and employee outputs are approved.
+        </p>
+      )}
     </div>
 
-    <div className="rounded-2xl border border-green-400/20 bg-green-400/[0.04] px-5 py-3 text-right">
-      <p className="text-xs text-green-300/70">Health score</p>
-      <p className="text-3xl font-bold text-green-300">{companyScore}%</p>
-    </div>
-  </div>
+    <div className="flex flex-wrap items-center gap-2">
+      <div className="rounded-2xl border border-green-400/20 bg-green-400/[0.04] px-5 py-3 text-right">
+        <p className="text-xs text-green-300/70">Health score</p>
+        <p className="text-3xl font-bold text-green-300">{companyScore}%</p>
+      </div>
 
-  <div className="mt-6 h-3 overflow-hidden rounded-full bg-white/10">
-    <div
-      className="h-full rounded-full bg-green-400"
-      style={{ width: `${companyScore}%` }}
-    />
-  </div>
-
-  <div className="mt-6 grid gap-4 md:grid-cols-4">
-    <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
-      <p className="text-xs text-white/30">Profile fields</p>
-      <p className="mt-2 text-2xl font-bold">{profileFieldsFilled}/4</p>
-    </div>
-
-    <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
-      <p className="text-xs text-white/30">Tasks created</p>
-      <p className="mt-2 text-2xl font-bold">{tasks.length}</p>
-    </div>
-
-    <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
-      <p className="text-xs text-white/30">Tasks completed</p>
-      <p className="mt-2 text-2xl font-bold">{completedTasks}</p>
-    </div>
-
-    <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
-      <p className="text-xs text-white/30">Outputs approved</p>
-      <p className="mt-2 text-2xl font-bold">{approvedOutputs}</p>
+      <button
+        type="button"
+        onClick={() => setIsHealthScoreOpen(!isHealthScoreOpen)}
+        className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50 hover:bg-white/[0.04] hover:text-white"
+      >
+        {isHealthScoreOpen ? "Hide score" : "Show score"}
+      </button>
     </div>
   </div>
+
+  {isHealthScoreOpen && (
+    <>
+      <div className="mt-6 h-3 overflow-hidden rounded-full bg-white/10">
+        <div
+          className="h-full rounded-full bg-green-400"
+          style={{ width: `${companyScore}%` }}
+        />
+      </div>
+
+      <div className="mt-6 grid gap-4 md:grid-cols-4">
+        <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+          <p className="text-xs text-white/30">Profile fields</p>
+          <p className="mt-2 text-2xl font-bold">{profileFieldsFilled}/4</p>
+        </div>
+
+        <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+          <p className="text-xs text-white/30">Tasks created</p>
+          <p className="mt-2 text-2xl font-bold">{tasks.length}</p>
+        </div>
+
+        <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+          <p className="text-xs text-white/30">Tasks completed</p>
+          <p className="mt-2 text-2xl font-bold">{completedTasks}</p>
+        </div>
+
+        <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+          <p className="text-xs text-white/30">Outputs approved</p>
+          <p className="mt-2 text-2xl font-bold">{approvedOutputs}</p>
+        </div>
+      </div>
+    </>
+  )}
+
+  {!isHealthScoreOpen && (
+    <div className="mt-4 rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white/50">
+      Score details hidden.
+    </div>
+  )}
 </section>
 <section className="relative mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
   <div className="flex items-center justify-between">
@@ -1673,9 +1719,11 @@ This output was regenerated after the previous draft was marked as needing chang
     <div>
       <p className="text-sm text-purple-300/70">Selected employee</p>
       <h2 className="mt-1 text-2xl font-bold">{selectedEmployeeProfile.name}</h2>
-      <p className="mt-2 max-w-2xl text-sm text-white/50">
-        {selectedEmployeeProfile.role}
-      </p>
+      {isEmployeeProfileOpen && (
+  <p className="mt-2 text-sm text-white/50">
+    {selectedEmployeeProfile.role}
+  </p>
+)}
     </div>
 
     <div className="flex flex-wrap items-center gap-2">
@@ -1727,8 +1775,7 @@ This output was regenerated after the previous draft was marked as needing chang
 
 {!isEmployeeProfileOpen && (
   <div className="mt-6 rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
-    Employee profile hidden. Click “Show profile” to view focus, best use case,
-    and skills.
+    Profile hidden. Click “Show profile” to view role details.
   </div>
 )}
 </section>
