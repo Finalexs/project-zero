@@ -331,6 +331,21 @@ const filteredEmployeeOutputs =
   outputFilter === "All"
     ? employeeOutputs
     : employeeOutputs.filter((output) => output.status === outputFilter);
+    const draftOutputs = employeeOutputs.filter(
+  (output) => output.status === "Draft",
+).length;
+
+const needsChangesOutputs = employeeOutputs.filter(
+  (output) => output.status === "Needs changes",
+).length;
+
+const approvedOutputsCount = employeeOutputs.filter(
+  (output) => output.status === "Approved",
+).length;
+
+const openTasks = tasks.filter(
+  (task) => task.status !== "Completed" && task.status !== "Approved",
+).length;
 const latestTask = tasks[0];
 
 const memoryItems = [
@@ -476,6 +491,58 @@ const companyScore = Math.min(
       <h3 className="mt-4 font-semibold">Approve or improve</h3>
       <p className="mt-2 text-sm leading-6 text-white/50">
         Approve it, request changes, regenerate it, or delete it.
+      </p>
+    </div>
+  </div>
+</section>
+<section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+  <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+    <div>
+      <p className="text-sm text-green-300/70">Review queue</p>
+      <h2 className="mt-1 text-2xl font-bold">
+        See what needs your attention.
+      </h2>
+      <p className="mt-2 max-w-2xl text-sm text-white/50">
+        Track drafts, requested changes, approved work, and open tasks from one
+        place before moving work forward.
+      </p>
+    </div>
+
+    <span className="rounded-full border border-green-400/20 bg-green-400/[0.04] px-3 py-1 text-xs text-green-300">
+      {draftOutputs + needsChangesOutputs} need review
+    </span>
+  </div>
+
+  <div className="mt-6 grid gap-4 md:grid-cols-4">
+    <div className="rounded-2xl border border-blue-400/20 bg-blue-400/[0.03] p-5">
+      <p className="text-sm text-blue-300/70">Drafts</p>
+      <p className="mt-3 text-3xl font-bold">{draftOutputs}</p>
+      <p className="mt-2 text-sm text-white/45">
+        Outputs waiting for your review.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-yellow-400/20 bg-yellow-400/[0.03] p-5">
+      <p className="text-sm text-yellow-300/70">Needs changes</p>
+      <p className="mt-3 text-3xl font-bold">{needsChangesOutputs}</p>
+      <p className="mt-2 text-sm text-white/45">
+        Work that should be improved or regenerated.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-green-400/20 bg-green-400/[0.03] p-5">
+      <p className="text-sm text-green-300/70">Approved</p>
+      <p className="mt-3 text-3xl font-bold">{approvedOutputsCount}</p>
+      <p className="mt-2 text-sm text-white/45">
+        Outputs that passed review.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
+      <p className="text-sm text-white/40">Open tasks</p>
+      <p className="mt-3 text-3xl font-bold">{openTasks}</p>
+      <p className="mt-2 text-sm text-white/45">
+        Tasks that are still moving through the workflow.
       </p>
     </div>
   </div>
