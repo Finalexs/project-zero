@@ -111,6 +111,8 @@ const [isBusinessProfileOpen, setIsBusinessProfileOpen] = useState(true);
 const [isReviewQueueOpen, setIsReviewQueueOpen] = useState(true);
 const [isQuickStartOpen, setIsQuickStartOpen] = useState(true);
 const [isHowItWorksOpen, setIsHowItWorksOpen] = useState(true);
+const [isEmployeesOpen, setIsEmployeesOpen] = useState(true);
+const [isEmployeeProfileOpen, setIsEmployeeProfileOpen] = useState(true);
   const [activity, setActivity] = useState([
   {
     message: "Project Manager created a new task queue.",
@@ -1517,26 +1519,43 @@ This output was regenerated after the previous draft was marked as needing chang
 </div>
 </section>
         <section className="mt-10 grid gap-6 lg:grid-cols-[1fr_1.4fr]">
-          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-            <h2 className="text-2xl font-bold">Employees</h2>
+          <div className="self-start rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+  <div className="flex items-center justify-between gap-4">
+    <h2 className="text-2xl font-bold">Employees</h2>
 
-            <div className="mt-6 space-y-4">
-              {employees.map((employee) => (
-                <div
-                  key={employee.name}
-                  className="rounded-2xl border border-white/10 bg-black/40 p-4"
-                >
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-semibold">{employee.name}</h3>
-                    <span className="text-xs text-blue-300">
-                      {employee.status}
-                    </span>
-                  </div>
-                  <p className="mt-2 text-sm text-white/50">{employee.task}</p>
-                </div>
-              ))}
-            </div>
+    <button
+      type="button"
+      onClick={() => setIsEmployeesOpen(!isEmployeesOpen)}
+      className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50 hover:bg-white/[0.04] hover:text-white"
+    >
+      {isEmployeesOpen ? "Hide employees" : "Show employees"}
+    </button>
+  </div>
+
+  {isEmployeesOpen && (
+    <div className="mt-6 space-y-4">
+      {employees.map((employee) => (
+        <div
+          key={employee.name}
+          className="rounded-2xl border border-white/10 bg-black/40 p-4"
+        >
+          <div className="flex items-center justify-between">
+            <h3 className="font-semibold">{employee.name}</h3>
+            <span className="text-xs text-blue-300">{employee.status}</span>
           </div>
+
+          <p className="mt-2 text-sm text-white/50">{employee.task}</p>
+        </div>
+      ))}
+    </div>
+  )}
+
+  {!isEmployeesOpen && (
+    <div className="mt-6 rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
+      Employees hidden. Click “Show employees” to view available AI roles.
+    </div>
+  )}
+</div>
 
           <div className="self-start rounded-3xl border border-white/10 bg-white/[0.03] p-6">
             <div className="flex items-center justify-between gap-4">
@@ -1659,11 +1678,22 @@ This output was regenerated after the previous draft was marked as needing chang
       </p>
     </div>
 
-    <span className="rounded-full border border-purple-400/20 bg-purple-400/[0.04] px-3 py-1 text-xs text-purple-300">
-      Active profile
-    </span>
-  </div>
+    <div className="flex flex-wrap items-center gap-2">
+  <span className="rounded-full border border-purple-400/20 px-3 py-1 text-xs text-purple-300">
+    Active profile
+  </span>
 
+  <button
+    type="button"
+    onClick={() => setIsEmployeeProfileOpen(!isEmployeeProfileOpen)}
+    className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50 hover:bg-white/[0.04] hover:text-white"
+  >
+    {isEmployeeProfileOpen ? "Hide profile" : "Show profile"}
+  </button>
+</div>
+  </div>
+  
+{isEmployeeProfileOpen && (
   <div className="mt-6 grid gap-4 md:grid-cols-3">
     <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
       <p className="text-sm text-white/40">Current focus</p>
@@ -1693,6 +1723,14 @@ This output was regenerated after the previous draft was marked as needing chang
       </div>
     </div>
   </div>
+)}
+
+{!isEmployeeProfileOpen && (
+  <div className="mt-6 rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
+    Employee profile hidden. Click “Show profile” to view focus, best use case,
+    and skills.
+  </div>
+)}
 </section>
       </div>
     </main>
