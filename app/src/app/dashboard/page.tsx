@@ -239,6 +239,13 @@ function getOutputType(employee: string) {
 
   return "Project plan";
 }
+function findTaskForOutput(output: EmployeeOutput, tasks: Task[]) {
+  if (output.task_id) {
+    return tasks.find((task) => task.id === output.task_id);
+  }
+
+  return tasks.find((task) => output.title.includes(task.title));
+}
  useEffect(() => {
   async function loadTasks() {
     setIsLoadingTasks(true);
@@ -975,7 +982,7 @@ setEmployeeOutputs(
       ...activity,
     ]);
 
-    const matchingTask = tasks.find((task) => task.id === output.task_id);
+    const matchingTask = findTaskForOutput(output, tasks);
 
     if (matchingTask) {
       await supabase
@@ -1026,7 +1033,7 @@ if (outputStatusError) {
       ...activity,
     ]);
 
-    const matchingTask = tasks.find((task) => task.id === output.task_id);
+    const matchingTask = findTaskForOutput(output, tasks);
 
     if (matchingTask) {
       await supabase
@@ -1046,6 +1053,101 @@ if (outputStatusError) {
   className="rounded-full border border-yellow-400/20 px-3 py-1 text-xs text-yellow-300 hover:bg-yellow-400/[0.06]"
 >
   Needs changes
+</button>
+<button
+  type="button"
+  onClick={async () => {
+    const matchingTask = findTaskForOutput(output, tasks);
+
+    if (!matchingTask) {
+      alert("Could not find the linked task for this output.");
+      return;
+    }
+
+    const outputResponse = await fetch("/api/generate-output", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        task: matchingTask.title,
+        employee: output.employee,
+        businessName: businessProfile.name,
+        industry: businessProfile.industry,
+        targetCustomer: businessProfile.customer,
+        mainGoal: businessProfile.goal,
+      }),
+    });
+
+    const generatedOutput = await outputResponse.json();
+
+    if (!outputResponse.ok) {
+      alert(generatedOutput.error ?? "Could not regenerate employee output.");
+      return;
+    }
+
+    if (output.id) {
+      const { data: updatedOutput, error: updateError } = await supabase
+        .from("outputs")
+        .update({
+          title: generatedOutput.title,
+          content: `${generatedOutput.content}
+
+Revision note:
+This output was regenerated after the previous draft was marked as needing changes.`,
+          status: "Draft",
+          type: getOutputType(output.employee),
+        })
+        .eq("id", output.id)
+        .select()
+        .single();
+
+      if (updateError) {
+        alert(updateError.message);
+        console.error(updateError);
+        return;
+      }
+
+      setEmployeeOutputs(
+        employeeOutputs.map((currentOutput, outputIndex) =>
+          outputIndex === index
+            ? {
+                ...currentOutput,
+                title: updatedOutput.title,
+                content: updatedOutput.content,
+                status: updatedOutput.status,
+                type: updatedOutput.type,
+                createdAt: "Regenerated",
+              }
+            : currentOutput,
+        ),
+      );
+    }
+
+    await supabase
+      .from("tasks")
+      .update({ status: "Waiting for approval" })
+      .eq("id", matchingTask.id);
+
+    setTasks(
+      tasks.map((task) =>
+        task.id === matchingTask.id
+          ? { ...task, status: "Waiting for approval" }
+          : task,
+      ),
+    );
+
+    setActivity([
+      {
+        message: `${output.employee} regenerated output: "${output.title}"`,
+        time: "Just now",
+      },
+      ...activity,
+    ]);
+  }}
+  className="rounded-full border border-blue-400/20 px-3 py-1 text-xs text-blue-300 hover:bg-blue-400/[0.06]"
+>
+  Regenerate
 </button>
 <button
   type="button"
