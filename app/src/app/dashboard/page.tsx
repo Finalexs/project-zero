@@ -420,6 +420,66 @@ const companyScore = Math.min(
     </div>
   </div>
 </section>
+<section className="mt-10 rounded-3xl border border-blue-400/20 bg-blue-400/[0.03] p-6">
+  <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+    <div>
+      <p className="text-sm text-blue-300/70">How it works</p>
+      <h2 className="mt-1 text-2xl font-bold">
+        Turn one instruction into reviewable work.
+      </h2>
+      <p className="mt-2 max-w-2xl text-sm text-white/50">
+        Project Zero helps you give work to digital AI employees, review what
+        they produce, and stay in control before anything gets approved.
+      </p>
+    </div>
+
+    <span className="rounded-full border border-blue-400/20 bg-blue-400/[0.04] px-3 py-1 text-xs text-blue-300">
+      Simple workflow
+    </span>
+  </div>
+
+  <div className="mt-6 grid gap-4 md:grid-cols-4">
+    <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-400 text-sm font-bold text-black">
+        1
+      </div>
+      <h3 className="mt-4 font-semibold">Write a task</h3>
+      <p className="mt-2 text-sm leading-6 text-white/50">
+        Tell your AI company what you want done in plain language.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-purple-400 text-sm font-bold text-black">
+        2
+      </div>
+      <h3 className="mt-4 font-semibold">Choose an employee</h3>
+      <p className="mt-2 text-sm leading-6 text-white/50">
+        Pick Researcher, Writer, Sales Rep, Designer, Developer, QA, or another role.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-green-400 text-sm font-bold text-black">
+        3
+      </div>
+      <h3 className="mt-4 font-semibold">Review the output</h3>
+      <p className="mt-2 text-sm leading-6 text-white/50">
+        Read the draft, plan, research, or task result before using it.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-yellow-400 text-sm font-bold text-black">
+        4
+      </div>
+      <h3 className="mt-4 font-semibold">Approve or improve</h3>
+      <p className="mt-2 text-sm leading-6 text-white/50">
+        Approve it, request changes, regenerate it, or delete it.
+      </p>
+    </div>
+  </div>
+</section>
 <section className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-5">
   <p className="text-sm text-white/40">Command your AI company</p>
 
