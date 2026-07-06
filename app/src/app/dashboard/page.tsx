@@ -108,6 +108,7 @@ const [isCommandHistoryOpen, setIsCommandHistoryOpen] = useState(true);
 const [isActivityOpen, setIsActivityOpen] = useState(true);
 const [isCompanyMemoryOpen, setIsCompanyMemoryOpen] = useState(true);
 const [isBusinessProfileOpen, setIsBusinessProfileOpen] = useState(true);
+const [isReviewQueueOpen, setIsReviewQueueOpen] = useState(true);
   const [activity, setActivity] = useState([
   {
     message: "Project Manager created a new task queue.",
@@ -514,11 +515,21 @@ const companyScore = Math.min(
       </p>
     </div>
 
-    <span className="rounded-full border border-green-400/20 bg-green-400/[0.04] px-3 py-1 text-xs text-green-300">
-      {draftOutputs + needsChangesOutputs} need review
-    </span>
-  </div>
+    <div className="flex flex-wrap items-center gap-2">
+  <span className="rounded-full border border-green-400/20 bg-green-400/[0.04] px-3 py-1 text-xs text-green-300">
+    {draftOutputs + needsChangesOutputs} need review
+  </span>
 
+  <button
+    type="button"
+    onClick={() => setIsReviewQueueOpen(!isReviewQueueOpen)}
+    className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50 hover:bg-white/[0.04] hover:text-white"
+  >
+    {isReviewQueueOpen ? "Hide queue" : "Show queue"}
+  </button>
+</div>
+  </div>
+{isReviewQueueOpen && (
   <div className="mt-6 grid gap-4 md:grid-cols-4">
     <div className="rounded-2xl border border-blue-400/20 bg-blue-400/[0.03] p-5">
       <p className="text-sm text-blue-300/70">Drafts</p>
@@ -552,6 +563,13 @@ const companyScore = Math.min(
       </p>
     </div>
   </div>
+  )}
+  {!isReviewQueueOpen && (
+  <div className="mt-6 rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
+    Review queue is hidden. Click “Show queue” to view drafts, requested
+    changes, approved work, and open tasks.
+  </div>
+)}
 </section>
 <section className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-5">
   <p className="text-sm text-white/40">Command your AI company</p>
