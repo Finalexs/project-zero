@@ -986,10 +986,12 @@ setTaskInput("");
     <h2 className="mt-1 text-2xl font-bold">
       What your AI company remembers.
     </h2>
-    <p className="mt-2 text-sm text-white/50">
-      Business context helps your AI employees understand the company before
-      creating work.
-    </p>
+    {isCompanyMemoryOpen && (
+  <p className="mt-2 text-sm text-white/50">
+    Business context helps your AI employees understand the company before
+    creating work.
+  </p>
+)}
   </div>
 
  
@@ -1028,8 +1030,7 @@ setTaskInput("");
 )}
 {!isCompanyMemoryOpen && (
   <div className="mt-6 rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
-    Company memory is hidden. Click “Show memory” to view business context,
-    goals, and latest task memory.
+    Memory hidden. Click “Show memory” to view company context.
   </div>
 )}
   </div>
