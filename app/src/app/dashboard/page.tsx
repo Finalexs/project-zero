@@ -105,6 +105,7 @@ const [outputFilter, setOutputFilter] = useState<OutputFilter>("All");
 const [isOutputsOpen, setIsOutputsOpen] = useState(true);
 const [isTasksOpen, setIsTasksOpen] = useState(true);
 const [isCommandHistoryOpen, setIsCommandHistoryOpen] = useState(true);
+const [isActivityOpen, setIsActivityOpen] = useState(true);
   const [activity, setActivity] = useState([
   {
     message: "Project Manager created a new task queue.",
@@ -975,16 +976,33 @@ setTaskInput("");
     </div>
   </div>
 </section>
-<section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+<section className="relative mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
   <div className="flex items-center justify-between">
-    <div>
-      <p className="text-sm text-white/40">Activity</p>
-      <h2 className="mt-1 text-2xl font-bold">Company timeline</h2>
-    </div>
+   <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+  <div className="pr-40">
+    <p className="text-sm text-white/40">Activity</p>
+    <h2 className="mt-1 text-2xl font-bold">Company timeline</h2>
+    <p className="mt-2 text-sm text-white/50">
+      See what your AI company has done recently.
+    </p>
+  </div>
 
+  <div className="absolute right-6 top-6 flex flex-wrap items-center gap-2">
     <span className="rounded-full border border-green-400/20 px-3 py-1 text-xs text-green-300">
       Live
     </span>
+
+    <button
+      type="button"
+      onClick={() => setIsActivityOpen(!isActivityOpen)}
+      className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50 hover:bg-white/[0.04] hover:text-white"
+    >
+      {isActivityOpen ? "Hide activity" : "Show activity"}
+    </button>
+  </div>
+</div>
+
+    
   </div>
 
   <div className="mt-6 space-y-4">
@@ -993,7 +1011,8 @@ setTaskInput("");
       {taskError}
     </div>
   )}
-
+{isActivityOpen && (
+  <div className="mt-6 space-y-4">
   {activity.map((item, index) => (
     <div
       key={`${item.message}-${index}`}
@@ -1003,6 +1022,13 @@ setTaskInput("");
       <p className="mt-1 text-xs text-white/30">{item.time}</p>
     </div>
   ))}
+    </div>
+)}
+{!isActivityOpen && (
+  <div className="mt-6 rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
+    Activity is hidden. Click “Show activity” to view recent AI company events.
+  </div>
+)}
 </div>
 </section>
 <section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
