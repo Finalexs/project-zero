@@ -109,6 +109,7 @@ const [isActivityOpen, setIsActivityOpen] = useState(true);
 const [isCompanyMemoryOpen, setIsCompanyMemoryOpen] = useState(true);
 const [isBusinessProfileOpen, setIsBusinessProfileOpen] = useState(true);
 const [isReviewQueueOpen, setIsReviewQueueOpen] = useState(true);
+const [isQuickStartOpen, setIsQuickStartOpen] = useState(true);
   const [activity, setActivity] = useState([
   {
     message: "Project Manager created a new task queue.",
@@ -717,56 +718,75 @@ setTaskInput("");
 </button>
   </div>
 </section>
-<section className="mt-6 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-  <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+<section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+  <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
     <div>
       <p className="text-sm text-white/40">Quick start templates</p>
       <h2 className="mt-1 text-2xl font-bold">
         Start with proven business tasks.
       </h2>
-      <p className="mt-2 max-w-2xl text-sm text-white/50">
+      <p className="mt-2 text-sm text-white/50">
         Choose a template and Project Zero will assign it to the right AI
         employee. You can still edit the task before assigning it.
       </p>
     </div>
 
-    <span className="rounded-full border border-blue-400/20 px-3 py-1 text-xs text-blue-300">
-      Founder mode
-    </span>
-  </div>
+    <div className="flex flex-wrap items-center gap-2">
+      <span className="rounded-full border border-blue-400/20 px-3 py-1 text-xs text-blue-300">
+        Founder mode
+      </span>
 
-  <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-    {taskTemplates.map((template) => (
       <button
-        key={template.title}
         type="button"
-        onClick={() => {
-          setTaskInput(template.title);
-          setSelectedEmployee(template.employee);
-
-          setActivity([
-            {
-              message: `Template selected: "${template.title}" for ${template.employee}.`,
-              time: "Just now",
-            },
-            ...activity,
-          ]);
-        }}
-        className="rounded-2xl border border-white/10 bg-black/40 p-5 text-left transition hover:border-blue-400/30 hover:bg-blue-400/[0.04]"
+        onClick={() => setIsQuickStartOpen(!isQuickStartOpen)}
+        className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50 hover:bg-white/[0.04] hover:text-white"
       >
-        <div className="flex items-center justify-between gap-3">
-          <h3 className="font-semibold">{template.title}</h3>
-          <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50">
-            {template.employee}
-          </span>
-        </div>
-
-        <p className="mt-3 text-sm leading-6 text-white/50">
-          {template.description}
-        </p>
+        {isQuickStartOpen ? "Hide templates" : "Show templates"}
       </button>
-    ))}
+    </div>
   </div>
+
+  {isQuickStartOpen && (
+    <div className="mt-6 grid gap-4 md:grid-cols-3">
+      {taskTemplates.map((template) => (
+        <button
+          key={template.title}
+          type="button"
+          onClick={() => {
+            setTaskInput(template.title);
+            setSelectedEmployee(template.employee);
+
+            setActivity([
+              {
+                message: `Template selected: "${template.title}" assigned to ${template.employee}.`,
+                time: "Just now",
+              },
+              ...activity,
+            ]);
+          }}
+          className="rounded-2xl border border-white/10 bg-black/40 p-5 text-left transition hover:border-blue-400/30 hover:bg-blue-400/[0.04]"
+        >
+          <div className="flex items-center justify-between gap-3">
+            <h3 className="font-semibold">{template.title}</h3>
+            <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50">
+              {template.employee}
+            </span>
+          </div>
+
+          <p className="mt-3 text-sm leading-6 text-white/50">
+            {template.description}
+          </p>
+        </button>
+      ))}
+    </div>
+  )}
+
+  {!isQuickStartOpen && (
+    <div className="mt-6 rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
+      Quick start templates are hidden. Click “Show templates” to pick a proven
+      business task.
+    </div>
+  )}
 </section>
 {dashboardMode === "builder" && (
   <section className="mt-6 rounded-3xl border border-purple-400/20 bg-purple-400/[0.04] p-6">
