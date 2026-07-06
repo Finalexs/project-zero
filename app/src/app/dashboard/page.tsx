@@ -102,6 +102,7 @@ export default function DashboardPage() {
   },
 ]);
 const [outputFilter, setOutputFilter] = useState<OutputFilter>("All");
+const [isOutputsOpen, setIsOutputsOpen] = useState(true);
   const [activity, setActivity] = useState([
   {
     message: "Project Manager created a new task queue.",
@@ -1047,7 +1048,7 @@ setTaskInput("");
       <h2 className="mt-1 text-2xl font-bold">Work produced by your AI company</h2>
     </div>
 
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap items-center gap-2">
   {(["All", "Draft", "Approved", "Needs changes"] as OutputFilter[]).map(
     (filter) => (
       <button
@@ -1064,15 +1065,26 @@ setTaskInput("");
       </button>
     ),
   )}
+
+  <button
+    type="button"
+    onClick={() => setIsOutputsOpen(!isOutputsOpen)}
+    className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50 hover:bg-white/[0.04] hover:text-white"
+  >
+    {isOutputsOpen ? "Hide outputs" : "Show outputs"}
+  </button>
 </div>
   </div>
 
   <div className="mt-6 grid gap-4 md:grid-cols-2">
+    {isOutputsOpen && (
+  <div className="mt-6 space-y-4">
     {filteredEmployeeOutputs.length === 0 && (
   <div className="rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
     No outputs found for this filter.
   </div>
 )}
+  
     {filteredEmployeeOutputs.map((output, index) => (
       <div
         key={`${output.employee}-${output.title}-${index}`}
@@ -1337,6 +1349,15 @@ This output was regenerated after the previous draft was marked as needing chang
       </div>
     ))}
   </div>
+  )}
+
+{!isOutputsOpen && (
+  <div className="mt-6 rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
+    Employee outputs are hidden. Click “Show outputs” to review drafts,
+    approvals, and requested changes.
+  </div>
+)}
+</div>
 </section>
         <section className="mt-10 grid gap-6 lg:grid-cols-[1fr_1.4fr]">
           <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
