@@ -104,6 +104,7 @@ export default function DashboardPage() {
 const [outputFilter, setOutputFilter] = useState<OutputFilter>("All");
 const [isOutputsOpen, setIsOutputsOpen] = useState(true);
 const [isTasksOpen, setIsTasksOpen] = useState(true);
+const [isCommandHistoryOpen, setIsCommandHistoryOpen] = useState(true);
   const [activity, setActivity] = useState([
   {
     message: "Project Manager created a new task queue.",
@@ -1005,23 +1006,34 @@ setTaskInput("");
 </div>
 </section>
 <section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-  <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-    <div>
-      <p className="text-sm text-blue-300/70">Command history</p>
-      <h2 className="mt-1 text-2xl font-bold">
-        Recent instructions given to your AI company.
-      </h2>
-      <p className="mt-2 text-sm text-white/50">
-        Every command becomes part of the company context, so the system can
-        understand what work has been requested.
-      </p>
-    </div>
+  <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+  <div>
+    <p className="text-sm text-blue-300/70">Command history</p>
+    <h2 className="mt-1 text-2xl font-bold">
+      Recent instructions given to your AI company.
+    </h2>
+    <p className="mt-2 text-sm text-white/50">
+      Every command becomes part of the company context, so the system can
+      understand what work has been requested.
+    </p>
+  </div>
 
+  <div className="flex flex-wrap items-center gap-2">
     <span className="rounded-full border border-blue-400/20 bg-blue-400/[0.04] px-3 py-1 text-xs text-blue-300">
       {commandHistory.length} commands
     </span>
-  </div>
 
+    <button
+      type="button"
+      onClick={() => setIsCommandHistoryOpen(!isCommandHistoryOpen)}
+      className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50 hover:bg-white/[0.04] hover:text-white"
+    >
+      {isCommandHistoryOpen ? "Hide history" : "Show history"}
+    </button>
+  </div>
+</div>
+
+  {isCommandHistoryOpen && (
   <div className="mt-6 space-y-3">
     {commandHistory.map((item, index) => (
       <div
@@ -1041,6 +1053,14 @@ setTaskInput("");
       </div>
     ))}
   </div>
+  )}
+
+{!isCommandHistoryOpen && (
+  <div className="mt-6 rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
+    Command history is hidden. Click “Show history” to view previous tasks and
+    assignments.
+  </div>
+)}
 </section>
 <section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
   <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
