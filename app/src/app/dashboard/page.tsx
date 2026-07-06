@@ -945,30 +945,16 @@ setTaskInput("");
 <button
   type="button"
   onClick={async () => {
-    if (output.id) {
-  const { error } = await supabase
-    .from("outputs")
-    .update({ status: "Approved" })
-    .eq("id", output.id);
+const { error: outputStatusError } = await supabase
+  .from("outputs")
+  .update({ status: "Approved" })
+  .eq("id", output.id);
 
-  if (error) {
-    alert(error.message);
-    console.error(error);
-    return;
-  }
-}
-if (output.id) {
-  const { error } = await supabase
-    .from("outputs")
-    .update({ status: "Needs changes" })
-    .eq("id", output.id);
-
-  if (error) {
-    alert(error.message);
-    console.error(error);
-    return;
-  }
-}    
+if (outputStatusError) {
+  alert(outputStatusError.message);
+  console.error(outputStatusError);
+  return;
+}  
 setEmployeeOutputs(
       employeeOutputs.map((currentOutput, outputIndex) =>
         outputIndex === index
@@ -1012,6 +998,16 @@ setEmployeeOutputs(
 <button
   type="button"
   onClick={async () => {
+const { error: outputStatusError } = await supabase
+  .from("outputs")
+  .update({ status: "Needs changes" })
+  .eq("id", output.id);
+
+if (outputStatusError) {
+  alert(outputStatusError.message);
+  console.error(outputStatusError);
+  return;
+}   
     setEmployeeOutputs(
       employeeOutputs.map((currentOutput, outputIndex) =>
         outputIndex === index
