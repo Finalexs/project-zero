@@ -107,6 +107,7 @@ const [isTasksOpen, setIsTasksOpen] = useState(true);
 const [isCommandHistoryOpen, setIsCommandHistoryOpen] = useState(true);
 const [isActivityOpen, setIsActivityOpen] = useState(true);
 const [isCompanyMemoryOpen, setIsCompanyMemoryOpen] = useState(true);
+const [isBusinessProfileOpen, setIsBusinessProfileOpen] = useState(true);
   const [activity, setActivity] = useState([
   {
     message: "Project Manager created a new task queue.",
@@ -812,11 +813,21 @@ setTaskInput("");
       </p>
     </div>
 
-    <div className="rounded-2xl border border-green-400/20 bg-green-400/[0.04] px-4 py-2 text-sm text-green-300">
-      Context active
-    </div>
-  </div>
+    <div className="flex flex-wrap items-center gap-2">
+  <span className="rounded-full border border-green-400/20 bg-green-400/[0.04] px-3 py-1 text-xs text-green-300">
+    Context active
+  </span>
 
+  <button
+    type="button"
+    onClick={() => setIsBusinessProfileOpen(!isBusinessProfileOpen)}
+    className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50 hover:bg-white/[0.04] hover:text-white"
+  >
+    {isBusinessProfileOpen ? "Hide profile" : "Show profile"}
+  </button>
+</div>
+  </div>
+{isBusinessProfileOpen && (
   <div className="mt-6 grid gap-4 md:grid-cols-2">
     <label className="block">
       <span className="text-sm text-white/40">Business name</span>
@@ -878,6 +889,13 @@ setTaskInput("");
       />
     </label>
   </div>
+  )}
+  {!isBusinessProfileOpen && (
+  <div className="mt-6 rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
+    Business profile is hidden. Click “Show profile” to edit company context,
+    target customers, industry, and main goal.
+  </div>
+)}
 </section>
         <section className="mt-10 grid gap-4 md:grid-cols-3">
           <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
