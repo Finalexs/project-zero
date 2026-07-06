@@ -12,6 +12,7 @@ type Task = {
 };
 type EmployeeOutput = {
   id?: string;
+  task_id?: string;
   employee: string;
   title: string;
   content: string;
@@ -276,6 +277,7 @@ async function loadOutputs() {
     setEmployeeOutputs(
       data.map((output) => ({
         id: output.id,
+        task_id: output.task_id,
         employee: output.employee,
         title: output.title,
         content: output.content,
@@ -507,6 +509,7 @@ if (!outputResponse.ok) {
 }
 
 const outputToSave = {
+  task_id: data.id,
   employee: generatedOutput.employee,
   title: generatedOutput.title,
   content: generatedOutput.content,
@@ -529,6 +532,7 @@ if (outputSaveError) {
 setEmployeeOutputs([
   {
     id: savedOutput.id,
+    task_id: savedOutput.task_id,
     employee: savedOutput.employee,
     title: savedOutput.title,
     content: savedOutput.content,
@@ -971,9 +975,7 @@ setEmployeeOutputs(
       ...activity,
     ]);
 
-    const matchingTask = tasks.find((task) =>
-      output.title.includes(task.title),
-    );
+    const matchingTask = tasks.find((task) => task.id === output.task_id);
 
     if (matchingTask) {
       await supabase
@@ -1024,9 +1026,7 @@ if (outputStatusError) {
       ...activity,
     ]);
 
-    const matchingTask = tasks.find((task) =>
-      output.title.includes(task.title),
-    );
+    const matchingTask = tasks.find((task) => task.id === output.task_id);
 
     if (matchingTask) {
       await supabase
