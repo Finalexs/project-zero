@@ -449,7 +449,7 @@ const companyScore = Math.min(
   </div>
 </section>
 <section className="mt-10 rounded-3xl border border-blue-400/20 bg-blue-400/[0.03] p-6">
-  <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+  <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
     <div>
       <p className="text-sm text-blue-300/70">How it works</p>
       <h2 className="mt-1 text-2xl font-bold">
@@ -463,7 +463,7 @@ const companyScore = Math.min(
 )}
     </div>
 
-    <div className="flex flex-wrap items-center gap-2">
+    <div className="flex flex-wrap items-center justify-end gap-2">
       <span className="rounded-full border border-blue-400/20 bg-blue-400/[0.04] px-3 py-1 text-xs text-blue-300">
         Simple workflow
       </span>
@@ -528,9 +528,9 @@ const companyScore = Math.min(
     </div>
   )}
 </section>
-<section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+<section className="relative mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
   <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-    <div>
+    <div className="pr-44">
       <p className="text-sm text-green-300/70">Review queue</p>
       <h2 className="mt-1 text-2xl font-bold">
         See what needs your attention.
@@ -543,7 +543,7 @@ const companyScore = Math.min(
 )}
     </div>
 
-    <div className="flex flex-wrap items-center gap-2">
+    <div className="absolute right-6 top-6 flex flex-wrap items-center justify-end gap-2">
   <span className="rounded-full border border-green-400/20 bg-green-400/[0.04] px-3 py-1 text-xs text-green-300">
     {draftOutputs + needsChangesOutputs} need review
   </span>
@@ -745,9 +745,9 @@ setTaskInput("");
 </button>
   </div>
 </section>
-<section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+<section className="relative mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
   <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-    <div>
+    <div className="pr-44">
       <p className="text-sm text-white/40">Quick start templates</p>
       <h2 className="mt-1 text-2xl font-bold">
         Start with proven business tasks.
@@ -760,7 +760,7 @@ setTaskInput("");
 )}
     </div>
 
-    <div className="flex flex-wrap items-center gap-2">
+    <div className="absolute right-6 top-6 flex flex-wrap items-center justify-end gap-2">
       <span className="rounded-full border border-blue-400/20 px-3 py-1 text-xs text-blue-300">
         Founder mode
       </span>
@@ -833,7 +833,7 @@ setTaskInput("");
         )}
       </div>
 
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="absolute right-6 top-6 flex flex-wrap items-center justify-end gap-2">
         <span className="rounded-full border border-purple-400/20 px-3 py-1 text-xs text-purple-300">
           Power user
         </span>
@@ -902,7 +902,7 @@ setTaskInput("");
 )}
     </div>
 
-    <div className="flex flex-wrap items-center gap-2">
+    <div className="flex flex-wrap items-center justify-end gap-2">
   <span className="rounded-full border border-green-400/20 bg-green-400/[0.04] px-3 py-1 text-xs text-green-300">
     Context active
   </span>
@@ -1022,7 +1022,7 @@ setTaskInput("");
  
 </div>
 
-   <div className="absolute right-6 top-6 flex flex-wrap items-center gap-2">
+   <div className="absolute right-6 top-6 flex flex-wrap items-center justify-end gap-2">
   <span className="rounded-full border border-purple-400/20 px-3 py-1 text-xs text-purple-300">
     Shared context
   </span>
@@ -1060,9 +1060,9 @@ setTaskInput("");
 )}
   </div>
 </section>
-<section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+<section className="relative mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
   <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-    <div>
+    <div className="pr-56">
       <p className="text-sm text-white/40">Company health</p>
       <h2 className="mt-1 text-2xl font-bold">
         Your AI company progress score.
@@ -1076,7 +1076,7 @@ setTaskInput("");
       )}
     </div>
 
-    <div className="flex flex-wrap items-center gap-2">
+    <div className="absolute right-6 top-4 flex flex-wrap items-start justify-end gap-2">
       <div className="rounded-2xl border border-green-400/20 bg-green-400/[0.04] px-5 py-3 text-right">
         <p className="text-xs text-green-300/70">Health score</p>
         <p className="text-3xl font-bold text-green-300">{companyScore}%</p>
@@ -1144,7 +1144,7 @@ setTaskInput("");
 )}
   </div>
 
-  <div className="absolute right-6 top-6 flex flex-wrap items-center gap-2">
+  <div className="absolute right-6 top-6 flex flex-wrap items-center justify-end gap-2">
     <span className="rounded-full border border-green-400/20 px-3 py-1 text-xs text-green-300">
       Live
     </span>
@@ -1188,9 +1188,9 @@ setTaskInput("");
 )}
 </div>
 </section>
-<section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+<section className="relative mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
   <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-  <div>
+  <div className="pr-44">
     <p className="text-sm text-blue-300/70">Command history</p>
     <h2 className="mt-1 text-2xl font-bold">
       Recent instructions given to your AI company.
@@ -1203,7 +1203,7 @@ setTaskInput("");
 )}
   </div>
 
-  <div className="flex flex-wrap items-center gap-2">
+  <div className="absolute right-6 top-6 flex flex-wrap items-center justify-end gap-2">
     <span className="rounded-full border border-blue-400/20 bg-blue-400/[0.04] px-3 py-1 text-xs text-blue-300">
       {commandHistory.length} commands
     </span>
@@ -1225,7 +1225,7 @@ setTaskInput("");
         key={`${item.command}-${index}`}
         className="rounded-2xl border border-white/10 bg-black/40 p-4"
       >
-        <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div>
             <p className="text-sm font-semibold">{item.command}</p>
             <p className="mt-1 text-xs text-white/40">
@@ -1246,14 +1246,14 @@ setTaskInput("");
   </div>
 )}
 </section>
-<section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-  <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-    <div>
+<section className="relative mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+  <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+    <div className="pr-44">
       <p className="text-sm text-white/40">Employee outputs</p>
       <h2 className="mt-1 text-2xl font-bold">Work produced by your AI company</h2>
     </div>
 
-    <div className="flex flex-wrap items-center gap-2">
+    <div className="absolute right-6 top-6 flex flex-wrap items-center justify-end gap-2">
   {(["All", "Draft", "Approved", "Needs changes"] as OutputFilter[]).map(
     (filter) => (
       <button
@@ -1726,7 +1726,7 @@ This output was regenerated after the previous draft was marked as needing chang
 )}
     </div>
 
-    <div className="flex flex-wrap items-center gap-2">
+    <div className="flex flex-wrap items-center justify-end gap-2">
   <span className="rounded-full border border-purple-400/20 px-3 py-1 text-xs text-purple-300">
     Active profile
   </span>
