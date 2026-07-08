@@ -216,40 +216,40 @@ const selectedEmployeeProfile =
   employeeProfiles[0];
 const taskTemplates = [
   {
-    title: "Create a 7-day marketing plan",
+    title: "Launch marketing campaign",
     employee: "Project Manager",
     description:
-      "Plan one week of marketing tasks for a small business based on the current business profile.",
+      "Create a campaign plan, content angles, weekly tasks, and review-ready drafts.",
   },
   {
-    title: "Research 5 competitors",
+    title: "Build competitor intelligence report",
     employee: "Researcher",
     description:
-      "Find competitors, compare positioning, and identify opportunities.",
+      "Analyze competitors, positioning, pricing, weaknesses, and opportunities.",
   },
   {
-    title: "Write 5 cold emails",
+    title: "Create outbound sales campaign",
     employee: "Sales Rep",
     description:
-      "Draft outreach emails for potential customers using the business goal.",
+      "Write cold emails, follow-ups, customer angles, and sales objections.",
   },
   {
-    title: "Create social media post ideas",
+    title: "Improve website conversion",
     employee: "Writer",
     description:
-      "Generate content ideas for short posts that match the target customer.",
+      "Review landing page copy, offer clarity, objections, and CTA improvements.",
   },
   {
-    title: "Improve landing page copy",
-    employee: "Writer",
-    description:
-      "Rewrite website copy so the offer is clearer and more convincing.",
-  },
-  {
-    title: "Create brand visual direction",
+    title: "Build brand direction",
     employee: "Designer",
     description:
-      "Suggest colors, visual style, and content direction for the business.",
+      "Create brand mood, colors, visual direction, voice, and content style.",
+  },
+  {
+    title: "Create business growth plan",
+    employee: "Project Manager",
+    description:
+      "Turn your business goal into tasks, priorities, milestones, and next actions.",
   },
 ];
 function getOutputType(employee: string) {
@@ -889,14 +889,13 @@ setTaskInput("");
 <section className="relative mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
   <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
     <div className="pr-44">
-      <p className="text-sm text-white/40">Quick start templates</p>
-      <h2 className="mt-1 text-2xl font-bold">
-        Start with proven business tasks.
-      </h2>
+      <p className="text-sm text-white/40">AI mission templates</p>
+<h2 className="mt-1 text-2xl font-bold">
+  Start a complete business workflow.
+</h2>
       {isQuickStartOpen && (
   <p className="mt-2 text-sm text-white/50">
-    Choose a template and Project Zero will assign it to the right AI
-    employee. You can still edit the task before assigning it.
+    Choose a mission and Project Zero will assign the right AI employee, create the work plan, and generate review-ready output.
   </p>
 )}
     </div>
@@ -911,7 +910,7 @@ setTaskInput("");
         onClick={() => setIsQuickStartOpen(!isQuickStartOpen)}
         className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50 hover:bg-white/[0.04] hover:text-white"
       >
-        {isQuickStartOpen ? "Hide templates" : "Show templates"}
+        {isQuickStartOpen ? "Hide missions" : "Show missions"}
       </button>
     </div>
   </div>
