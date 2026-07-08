@@ -30,6 +30,15 @@ type CommandHistoryItem = {
   time: string;
   created_at?: string;
 };
+type ToolRun = {
+  id?: string;
+  tool_key: string;
+  tool_name: string;
+  action_name: string;
+  status: string;
+  payload?: Record<string, unknown>;
+  created_at?: string;
+};
 
 type OutputFilter = "All" | "Draft" | "Approved" | "Needs changes";
 
@@ -113,6 +122,7 @@ const [enabledToolKeys, setEnabledToolKeys] = useState<string[]>([
   "google_docs",
   "webhook",
 ]);
+const [toolRuns, setToolRuns] = useState<ToolRun[]>([]);
 const [isTasksOpen, setIsTasksOpen] = useState(true);
 const [isCommandHistoryOpen, setIsCommandHistoryOpen] = useState(true);
 const [showAllCommandHistory, setShowAllCommandHistory] = useState(false);
@@ -456,11 +466,41 @@ async function loadUserTools() {
       .map((tool) => tool.tool_key)
   );
 }
+
+async function loadToolRuns() {
+  if (!currentUser) return;
+
+  const { data, error } = await supabase
+    .from("tool_runs")
+    .select("*")
+    .eq("user_id", currentUser.id)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.warn("Could not load tool runs:", error);
+    return;
+  }
+
+  if (data) {
+    setToolRuns(
+      data.map((run) => ({
+        id: run.id,
+        tool_key: run.tool_key,
+        tool_name: run.tool_name,
+        action_name: run.action_name,
+        status: run.status,
+        payload: run.payload,
+        created_at: run.created_at,
+      }))
+    );
+  }
+}
   loadTasks();
   loadOutputs();
   loadCommandHistory();
   loadBusinessProfile();
   loadUserTools();
+  loadToolRuns();
 }, [currentUser]);
 const filteredEmployeeOutputs =
   outputFilter === "All"
@@ -1105,9 +1145,15 @@ setTaskInput("");
       </p>
     </div>
 
-    <span className="rounded-full border border-blue-400/20 bg-blue-400/[0.04] px-3 py-1 text-xs text-blue-300">
-      Approval required
-    </span>
+    <div className="flex flex-wrap items-center justify-end gap-2">
+  <span className="rounded-full border border-blue-400/20 bg-blue-400/[0.04] px-3 py-1 text-xs text-blue-300">
+    Approval required
+  </span>
+
+  <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/45">
+    {toolRuns.length} tool runs
+  </span>
+</div>
   </div>
 
   <div className="mt-5 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
