@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
+import type { User } from "@supabase/supabase-js";
 type Task = {
   id: string;
   title: string;
@@ -79,6 +80,8 @@ const initialTasks: Task[] = [
 
 export default function DashboardPage() {
   const router = useRouter();
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [taskInput, setTaskInput] = useState("");
   const [commandHistory, setCommandHistory] = useState<CommandHistoryItem[]>([
   {
@@ -274,7 +277,11 @@ useEffect(() => {
 
     if (!user) {
       router.push("/login");
+      return;
     }
+
+    setCurrentUser(user);
+    setIsCheckingAuth(false);
   }
 
   checkUser();
@@ -284,10 +291,13 @@ useEffect(() => {
   async function loadTasks() {
     setIsLoadingTasks(true);
 
-    const { data, error } = await supabase
-      .from("tasks")
-      .select("*")
-      .order("created_at", { ascending: false });
+    if (!currentUser) return;
+
+const { data, error } = await supabase
+  .from("tasks")
+  .select("*")
+  .eq("user_id", currentUser.id)
+  .order("created_at", { ascending: false });
 
     setIsLoadingTasks(false);
 
@@ -356,7 +366,7 @@ async function loadCommandHistory() {
   loadTasks();
   loadOutputs();
   loadCommandHistory();
-}, []);
+}, [currentUser]);
 const filteredEmployeeOutputs =
   outputFilter === "All"
     ? employeeOutputs
@@ -436,6 +446,15 @@ async function deleteCommandHistoryItem(itemId: string) {
     setCommandHistory(previousHistory);
     setTaskError("Could not delete command history item. Please try again.");
   }
+}
+if (isCheckingAuth) {
+  return (
+    <main className="flex min-h-screen items-center justify-center bg-black px-6 text-white">
+      <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 text-center">
+        <p className="text-sm text-white/50">Checking your session...</p>
+      </div>
+    </main>
+  );
 }
   return (
     <main className="min-h-screen bg-black px-6 py-8 text-white">
@@ -677,10 +696,16 @@ async function deleteCommandHistoryItem(itemId: string) {
   onClick={async () => {
   if (!taskInput) return;
 
-  const newTask = {
+if (!currentUser) {
+  setTaskError("You must be logged in to assign tasks.");
+  return;
+}
+
+const newTask = {
   title: taskInput,
   employee: selectedEmployee,
   status: "Waiting for approval",
+  user_id: currentUser.id,
 };
 
   const { data, error } = await supabase
@@ -706,6 +731,7 @@ setActivity([
 const commandToSave = {
   command: data.title,
   employee: selectedEmployee,
+  user_id: currentUser.id,
 };
 
 const { data: savedCommand, error: commandSaveError } = await supabase
@@ -753,12 +779,12 @@ if (!outputResponse.ok) {
 }
 
 const outputToSave = {
-  task_id: data.id,
-  employee: generatedOutput.employee,
-  title: generatedOutput.title,
+  employee: selectedEmployee,
+  title: `${selectedEmployee} output for: ${data.title}`,
   content: generatedOutput.content,
-  status: generatedOutput.status,
+  status: "Draft",
   type: getOutputType(selectedEmployee),
+  user_id: currentUser.id,
 };
 
 const { data: savedOutput, error: outputSaveError } = await supabase
