@@ -112,6 +112,7 @@ const [isTasksOpen, setIsTasksOpen] = useState(true);
 const [isCommandHistoryOpen, setIsCommandHistoryOpen] = useState(true);
 const [showAllCommandHistory, setShowAllCommandHistory] = useState(false);
 const [isActivityOpen, setIsActivityOpen] = useState(true);
+const [showAllActivity, setShowAllActivity] = useState(false);
 const [isCompanyMemoryOpen, setIsCompanyMemoryOpen] = useState(true);
 const [isBusinessProfileOpen, setIsBusinessProfileOpen] = useState(true);
 const [isReviewQueueOpen, setIsReviewQueueOpen] = useState(true);
@@ -418,6 +419,7 @@ const approvedOutputs = employeeOutputs.filter(
 ).length;
 
 const profileFieldsFilled = Object.values(businessProfile).filter(Boolean).length;
+const visibleActivity = showAllActivity ? activity : activity.slice(0, 5);
 const visibleCommandHistory = showAllCommandHistory
   ? commandHistory
   : commandHistory.slice(0, 5);
@@ -1254,16 +1256,39 @@ setTaskInput("");
   )}
 {isActivityOpen && (
   <div className="mt-6 space-y-4">
-  {activity.map((item, index) => (
+  {visibleActivity.map((item, index) => (
     <div
       key={`${item.message}-${index}`}
       className="rounded-2xl border border-white/10 bg-black/40 p-4"
     >
       <p className="text-sm text-white/70">{item.message}</p>
-      <p className="mt-1 text-xs text-white/30">{item.time}</p>
+      <div className="mt-2 flex items-center gap-2">
+  <span className="text-xs text-white/30">{item.time}</span>
+
+  <button
+    type="button"
+    onClick={() =>
+      setActivity((currentActivity) =>
+        currentActivity.filter((_, activityIndex) => activityIndex !== index)
+      )
+    }
+    className="rounded-full border border-red-400/20 px-3 py-1 text-xs text-red-300 hover:bg-red-400/[0.06]"
+  >
+    Delete
+  </button>
+</div>
     </div>
   ))}
     </div>
+)}
+    {activity.length > 5 && (
+  <button
+    type="button"
+    onClick={() => setShowAllActivity(!showAllActivity)}
+    className="mt-4 rounded-full border border-white/10 px-4 py-2 text-xs text-white/50 hover:bg-white/[0.04] hover:text-white"
+  >
+    {showAllActivity ? "Show less activity" : "Show all activity"}
+  </button>
 )}
 {!isActivityOpen && (
   <div className="mt-6 rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
