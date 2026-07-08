@@ -369,9 +369,33 @@ const { data, error } = await supabase
     );
   }
 }
+async function loadBusinessProfile() {
+  if (!currentUser) return;
+
+  const { data, error } = await supabase
+    .from("business_profiles")
+    .select("*")
+    .eq("user_id", currentUser.id)
+    .maybeSingle();
+
+  if (error) {
+    console.warn("Could not load business profile:", error);
+    return;
+  }
+
+  if (data) {
+    setBusinessProfile({
+      name: data.business_name ?? "",
+      industry: data.industry ?? "",
+      customer: data.target_customer ?? "",
+      goal: data.main_goal ?? "",
+    });
+  }
+}
   loadTasks();
   loadOutputs();
   loadCommandHistory();
+  loadBusinessProfile();
 }, [currentUser]);
 const filteredEmployeeOutputs =
   outputFilter === "All"
@@ -432,6 +456,40 @@ const companyScore = Math.min(
   100,
   profileFieldsFilled * 15 + tasks.length * 5 + completedTasks * 10 + approvedOutputs * 10,
 );
+async function saveBusinessProfile() {
+  if (!currentUser) {
+    setTaskError("You must be logged in to save your business profile.");
+    return;
+  }
+
+  const { error } = await supabase.from("business_profiles").upsert(
+    {
+      user_id: currentUser.id,
+      business_name: businessProfile.name,
+      industry: businessProfile.industry,
+      target_customer: businessProfile.customer,
+      main_goal: businessProfile.goal,
+      updated_at: new Date().toISOString(),
+    },
+    {
+      onConflict: "user_id",
+    }
+  );
+
+  if (error) {
+    setTaskError("Could not save business profile. Please try again.");
+    console.error(error);
+    return;
+  }
+
+  setActivity([
+    {
+      message: "Business profile saved.",
+      time: "Just now",
+    },
+    ...activity,
+  ]);
+}
 async function handleLogout() {
   await supabase.auth.signOut();
   router.push("/login");
@@ -989,7 +1047,13 @@ setTaskInput("");
   <span className="rounded-full border border-green-400/20 bg-green-400/[0.04] px-3 py-1 text-xs text-green-300">
     Context active
   </span>
-
+<button
+  type="button"
+  onClick={saveBusinessProfile}
+  className="rounded-full border border-blue-400/20 px-3 py-1 text-xs text-blue-300 hover:bg-blue-400/[0.06]"
+>
+  Save profile
+</button>
   <button
     type="button"
     onClick={() => setIsBusinessProfileOpen(!isBusinessProfileOpen)}
