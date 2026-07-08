@@ -561,6 +561,66 @@ const companyScore = Math.min(
   100,
   profileFieldsFilled * 15 + tasks.length * 5 + completedTasks * 10 + approvedOutputs * 10,
 );
+async function createMockGmailDraft(output: EmployeeOutput) {
+  if (!currentUser) {
+    setTaskError("You must be logged in to use tools.");
+    return;
+  }
+
+  if (!enabledToolKeys.includes("gmail_drafts")) {
+    setTaskError("Gmail Drafts tool is disabled. Enable it in Builder Mode.");
+    return;
+  }
+
+  const payload = {
+    outputId: output.id,
+    title: output.title,
+    employee: output.employee,
+    preview: output.content.slice(0, 500),
+  };
+
+  const { data, error } = await supabase
+    .from("tool_runs")
+    .insert([
+      {
+        user_id: currentUser.id,
+        tool_key: "gmail_drafts",
+        tool_name: "Gmail Drafts",
+        action_name: "Create email draft",
+        status: "preview",
+        payload,
+      },
+    ])
+    .select()
+    .single();
+
+  if (error) {
+    setTaskError("Could not create Gmail draft preview.");
+    console.error(error);
+    return;
+  }
+
+  setToolRuns([
+    {
+      id: data.id,
+      tool_key: data.tool_key,
+      tool_name: data.tool_name,
+      action_name: data.action_name,
+      status: data.status,
+      payload: data.payload,
+      created_at: data.created_at,
+    },
+    ...toolRuns,
+  ]);
+
+  setActivity([
+    {
+      message: `Gmail Drafts prepared a draft from "${output.title}".`,
+      time: "Just now",
+    },
+    ...activity,
+  ]);
+}
 async function toggleUserTool(toolKey: string, toolName: string) {
   if (!currentUser) {
     setTaskError("You must be logged in to change tool settings.");
@@ -1824,6 +1884,15 @@ if (outputStatusError) {
 >
   Needs changes
 </button>
+{output.employee === "Sales Rep" && (
+  <button
+    type="button"
+    onClick={() => createMockGmailDraft(output)}
+    className="rounded-full border border-blue-400/20 px-3 py-1 text-xs text-blue-300 hover:bg-blue-400/[0.06]"
+  >
+    Create Gmail draft
+  </button>
+)}
 <button
   type="button"
   onClick={async () => {
