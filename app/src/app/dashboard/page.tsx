@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 type Task = {
@@ -77,6 +78,7 @@ const initialTasks: Task[] = [
 ];
 
 export default function DashboardPage() {
+  const router = useRouter();
   const [taskInput, setTaskInput] = useState("");
   const [commandHistory, setCommandHistory] = useState<CommandHistoryItem[]>([
   {
@@ -264,7 +266,21 @@ function findTaskForOutput(output: EmployeeOutput, tasks: Task[]) {
 
   return tasks.find((task) => output.title.includes(task.title));
 }
+useEffect(() => {
+  async function checkUser() {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      router.push("/login");
+    }
+  }
+
+  checkUser();
+}, [router]);
  useEffect(() => {
+  
   async function loadTasks() {
     setIsLoadingTasks(true);
 
