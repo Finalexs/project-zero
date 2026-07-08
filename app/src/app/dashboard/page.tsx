@@ -1252,6 +1252,52 @@ setTaskInput("");
     ))}
   </div>
 </div>
+<div className="mt-6 rounded-2xl border border-white/10 bg-black/40 p-5 md:col-span-2 lg:col-span-4">
+  <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+    <div>
+      <p className="font-semibold">Tool runs</p>
+      <p className="mt-2 text-sm text-white/50">
+        Preview actions created by AI employees before real app connections are enabled.
+      </p>
+    </div>
+
+    <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/45">
+      {toolRuns.length} total
+    </span>
+  </div>
+
+  <div className="mt-5 space-y-3">
+    {toolRuns.length === 0 && (
+      <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm text-white/45">
+        No tool runs yet. Create a Gmail draft from a Sales Rep output to test this.
+      </div>
+    )}
+
+    {toolRuns.slice(0, 5).map((run) => (
+      <div
+        key={run.id}
+        className="rounded-2xl border border-white/10 bg-white/[0.03] p-4"
+      >
+        <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+          <div>
+            <p className="text-sm font-semibold text-white">{run.tool_name}</p>
+            <p className="mt-1 text-sm text-white/50">{run.action_name}</p>
+          </div>
+
+          <span className="rounded-full border border-blue-400/20 bg-blue-400/[0.04] px-3 py-1 text-xs text-blue-300">
+            {run.status}
+          </span>
+        </div>
+
+        {run.payload && (
+          <div className="mt-3 rounded-xl border border-white/10 bg-black/40 p-3 text-xs text-white/45">
+            {JSON.stringify(run.payload, null, 2).slice(0, 300)}
+          </div>
+        )}
+      </div>
+    ))}
+  </div>
+</div>
 
         <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
           <p className="font-semibold">Automation rules</p>
