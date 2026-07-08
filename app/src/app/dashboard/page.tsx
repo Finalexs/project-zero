@@ -765,7 +765,7 @@ if (!currentUser) {
   setTaskError("You must be logged in to assign tasks.");
   return;
 }
-
+await saveBusinessProfile();
 const newTask = {
   title: taskInput,
   employee: selectedEmployee,
