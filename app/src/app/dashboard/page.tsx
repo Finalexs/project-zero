@@ -315,11 +315,13 @@ setTaskError("");
     }
   }
 async function loadOutputs() {
-  const { data, error } = await supabase
-    .from("outputs")
-    .select("*")
-    .order("created_at", { ascending: false });
+ if (!currentUser) return;
 
+const { data, error } = await supabase
+  .from("outputs")
+  .select("*")
+  .eq("user_id", currentUser.id)
+  .order("created_at", { ascending: false });
   if (error) {
     console.warn("Could not load outputs:", error);
     return;
@@ -342,10 +344,13 @@ async function loadOutputs() {
   }
 }
 async function loadCommandHistory() {
-  const { data, error } = await supabase
-    .from("command_history")
-    .select("*")
-    .order("created_at", { ascending: false });
+  if (!currentUser) return;
+
+const { data, error } = await supabase
+  .from("command_history")
+  .select("*")
+  .eq("user_id", currentUser.id)
+  .order("created_at", { ascending: false });
 
   if (error) {
     console.warn("Could not load command history:", error);
