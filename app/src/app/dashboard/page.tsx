@@ -817,7 +817,7 @@ setTaskInput("");
 )}
 </section>
 {dashboardMode === "builder" && (
-  <section className="mt-6 rounded-3xl border border-purple-400/20 bg-purple-400/[0.04] p-6">
+  <section className="relative mt-6 rounded-3xl border border-purple-400/20 bg-purple-400/[0.04] p-6">
     <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
       <div>
         <p className="text-sm text-purple-300/70">Builder Mode</p>
@@ -1003,14 +1003,17 @@ setTaskInput("");
   </p>
 </div>
         </section>
+{dashboardMode === "builder" && (
 <section className="relative mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
   <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
     <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
   <div>
+
     <p className="text-sm text-white/40">Company memory</p>
     <h2 className="mt-1 text-2xl font-bold">
       What your AI company remembers.
     </h2>
+
     {isCompanyMemoryOpen && (
   <p className="mt-2 text-sm text-white/50">
     Business context helps your AI employees understand the company before
@@ -1018,6 +1021,7 @@ setTaskInput("");
   </p>
 )}
   </div>
+
 
  
 </div>
@@ -1060,6 +1064,7 @@ setTaskInput("");
 )}
   </div>
 </section>
+)}
 <section className="relative mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
   <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
     <div className="pr-56">
