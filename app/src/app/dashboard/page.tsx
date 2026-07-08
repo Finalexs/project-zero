@@ -252,6 +252,44 @@ const taskTemplates = [
       "Turn your business goal into tasks, priorities, milestones, and next actions.",
   },
 ];
+const defaultTools = [
+  {
+    key: "gmail_drafts",
+    name: "Gmail Drafts",
+    description: "Create email drafts for outreach, follow-ups, and replies.",
+    status: "Mock mode",
+  },
+  {
+    key: "google_docs",
+    name: "Google Docs Export",
+    description: "Turn approved outputs into clean document drafts.",
+    status: "Mock mode",
+  },
+  {
+    key: "webhook",
+    name: "Webhook / HTTP Request",
+    description: "Send approved work to external apps and automation flows.",
+    status: "Mock mode",
+  },
+  {
+    key: "google_sheets",
+    name: "Google Sheets",
+    description: "Save research, leads, reports, and structured data.",
+    status: "Coming soon",
+  },
+  {
+    key: "slack",
+    name: "Slack",
+    description: "Post updates, summaries, and team notifications.",
+    status: "Coming soon",
+  },
+  {
+    key: "notion",
+    name: "Notion",
+    description: "Save project notes, plans, and knowledge base entries.",
+    status: "Coming soon",
+  },
+];
 function getOutputType(employee: string) {
   if (employee === "Researcher") return "Research brief";
   if (employee === "Writer") return "Draft copy";
@@ -990,12 +1028,41 @@ setTaskInput("");
 
     {isBuilderControlsOpen && (
       <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
-          <p className="font-semibold">Tool access</p>
-          <p className="mt-2 text-sm text-white/50">
-            Choose what tools each AI employee can use.
-          </p>
+        <div className="rounded-2xl border border-white/10 bg-black/40 p-5 md:col-span-2 lg:col-span-4">
+  <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+    <div>
+      <p className="font-semibold">Tool access</p>
+      <p className="mt-2 text-sm text-white/50">
+        Choose which tools your AI employees can use. Tools are in mock mode
+        until real API connections are added.
+      </p>
+    </div>
+
+    <span className="rounded-full border border-blue-400/20 bg-blue-400/[0.04] px-3 py-1 text-xs text-blue-300">
+      Approval required
+    </span>
+  </div>
+
+  <div className="mt-5 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+    {defaultTools.map((tool) => (
+      <div
+        key={tool.key}
+        className="rounded-2xl border border-white/10 bg-white/[0.03] p-4"
+      >
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <p className="font-medium">{tool.name}</p>
+            <p className="mt-2 text-sm text-white/45">{tool.description}</p>
+          </div>
+
+          <span className="shrink-0 rounded-full border border-white/10 px-2 py-1 text-[11px] text-white/45">
+            {tool.status}
+          </span>
         </div>
+      </div>
+    ))}
+  </div>
+</div>
 
         <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
           <p className="font-semibold">Automation rules</p>
