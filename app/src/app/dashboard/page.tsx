@@ -105,6 +105,7 @@ const [outputFilter, setOutputFilter] = useState<OutputFilter>("All");
 const [isOutputsOpen, setIsOutputsOpen] = useState(true);
 const [isTasksOpen, setIsTasksOpen] = useState(true);
 const [isCommandHistoryOpen, setIsCommandHistoryOpen] = useState(true);
+const [showAllCommandHistory, setShowAllCommandHistory] = useState(false);
 const [isActivityOpen, setIsActivityOpen] = useState(true);
 const [isCompanyMemoryOpen, setIsCompanyMemoryOpen] = useState(true);
 const [isBusinessProfileOpen, setIsBusinessProfileOpen] = useState(true);
@@ -391,12 +392,30 @@ const approvedOutputs = employeeOutputs.filter(
 ).length;
 
 const profileFieldsFilled = Object.values(businessProfile).filter(Boolean).length;
-
+const visibleCommandHistory = showAllCommandHistory
+  ? commandHistory
+  : commandHistory.slice(0, 5);
 const companyScore = Math.min(
   100,
   profileFieldsFilled * 15 + tasks.length * 5 + completedTasks * 10 + approvedOutputs * 10,
 );
+async function deleteCommandHistoryItem(itemId: string) {
+  const previousHistory = commandHistory;
 
+  setCommandHistory((currentHistory) =>
+    currentHistory.filter((item) => item.id !== itemId)
+  );
+
+  const { error } = await supabase
+    .from("command_history")
+    .delete()
+    .eq("id", itemId);
+
+  if (error) {
+    setCommandHistory(previousHistory);
+    setTaskError("Could not delete command history item. Please try again.");
+  }
+}
   return (
     <main className="min-h-screen bg-black px-6 py-8 text-white">
       <div className="mx-auto max-w-6xl">
@@ -1230,7 +1249,7 @@ setTaskInput("");
 
   {isCommandHistoryOpen && (
   <div className="mt-6 space-y-3">
-    {commandHistory.map((item, index) => (
+    {visibleCommandHistory.map((item, index) => (
       <div
         key={`${item.command}-${index}`}
         className="rounded-2xl border border-white/10 bg-black/40 p-4"
@@ -1243,12 +1262,34 @@ setTaskInput("");
             </p>
           </div>
 
-          <span className="text-xs text-white/30">{item.time}</span>
+          <div className="flex items-center gap-2">
+  <span className="text-xs text-white/30">{item.time}</span>
+
+  <button
+    type="button"
+    onClick={() => {
+  if (!item.id) return;
+  deleteCommandHistoryItem(item.id);
+}}
+    className="rounded-full border border-red-400/20 px-3 py-1 text-xs text-red-300 hover:bg-red-400/[0.06]"
+  >
+    Delete
+  </button>
+</div>
         </div>
       </div>
     ))}
   </div>
   )}
+  {commandHistory.length > 5 && (
+  <button
+    type="button"
+    onClick={() => setShowAllCommandHistory(!showAllCommandHistory)}
+    className="mt-4 rounded-full border border-white/10 px-4 py-2 text-xs text-white/50 hover:bg-white/[0.04] hover:text-white"
+  >
+    {showAllCommandHistory ? "Show less history" : "Show all history"}
+  </button>
+)}
 
 {!isCommandHistoryOpen && (
   <div className="mt-6 rounded-2xl border border-white/10 bg-black/40 p-5 text-sm text-white/50">
