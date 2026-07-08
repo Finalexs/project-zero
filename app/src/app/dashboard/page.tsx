@@ -415,6 +415,11 @@ const companyScore = Math.min(
   100,
   profileFieldsFilled * 15 + tasks.length * 5 + completedTasks * 10 + approvedOutputs * 10,
 );
+async function handleLogout() {
+  await supabase.auth.signOut();
+  router.push("/login");
+  router.refresh();
+}
 async function deleteCommandHistoryItem(itemId: string) {
   const previousHistory = commandHistory;
 
@@ -440,7 +445,17 @@ async function deleteCommandHistoryItem(itemId: string) {
   ← Back to Project Zero
 </Link>
 
-          <div className="text-white/50">AI Company Dashboard</div>
+          <div className="flex items-center gap-3">
+  <span className="text-white/50">AI Company Dashboard</span>
+
+  <button
+    type="button"
+    onClick={handleLogout}
+    className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50 hover:bg-white/[0.04] hover:text-white"
+  >
+    Log out
+  </button>
+</div>
         </nav>
 
         <section className="mt-12">
