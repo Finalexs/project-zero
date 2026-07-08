@@ -1138,6 +1138,7 @@ setTaskInput("");
   )}
 </section>
 )}
+{dashboardMode === "builder" && (
 <section className="relative mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
   <div className="flex items-center justify-between">
    <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
@@ -1195,6 +1196,7 @@ setTaskInput("");
 )}
 </div>
 </section>
+)}
 <section className="relative mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
   <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
   <div className="pr-44">
