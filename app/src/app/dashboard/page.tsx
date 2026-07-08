@@ -108,6 +108,11 @@ const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 ]);
 const [outputFilter, setOutputFilter] = useState<OutputFilter>("All");
 const [isOutputsOpen, setIsOutputsOpen] = useState(true);
+const [enabledToolKeys, setEnabledToolKeys] = useState<string[]>([
+  "gmail_drafts",
+  "google_docs",
+  "webhook",
+]);
 const [isTasksOpen, setIsTasksOpen] = useState(true);
 const [isCommandHistoryOpen, setIsCommandHistoryOpen] = useState(true);
 const [showAllCommandHistory, setShowAllCommandHistory] = useState(false);
@@ -430,10 +435,32 @@ async function loadBusinessProfile() {
     });
   }
 }
+async function loadUserTools() {
+  if (!currentUser) return;
+
+  const { data, error } = await supabase
+    .from("user_tools")
+    .select("*")
+    .eq("user_id", currentUser.id);
+
+  if (error) {
+    console.warn("Could not load user tools:", error);
+    return;
+  }
+
+  if (!data || data.length === 0) return;
+
+  setEnabledToolKeys(
+    data
+      .filter((tool) => tool.status !== "disabled")
+      .map((tool) => tool.tool_key)
+  );
+}
   loadTasks();
   loadOutputs();
   loadCommandHistory();
   loadBusinessProfile();
+  loadUserTools();
 }, [currentUser]);
 const filteredEmployeeOutputs =
   outputFilter === "All"
@@ -494,6 +521,46 @@ const companyScore = Math.min(
   100,
   profileFieldsFilled * 15 + tasks.length * 5 + completedTasks * 10 + approvedOutputs * 10,
 );
+async function toggleUserTool(toolKey: string, toolName: string) {
+  if (!currentUser) {
+    setTaskError("You must be logged in to change tool settings.");
+    return;
+  }
+
+  const isEnabled = enabledToolKeys.includes(toolKey);
+  const nextStatus = isEnabled ? "disabled" : "mock";
+
+  setEnabledToolKeys((currentKeys) =>
+    isEnabled
+      ? currentKeys.filter((key) => key !== toolKey)
+      : [...currentKeys, toolKey]
+  );
+
+  const { error } = await supabase.from("user_tools").upsert(
+    {
+      user_id: currentUser.id,
+      tool_key: toolKey,
+      tool_name: toolName,
+      status: nextStatus,
+      approval_required: true,
+      updated_at: new Date().toISOString(),
+    },
+    {
+      onConflict: "user_id,tool_key",
+    }
+  );
+
+  if (error) {
+    setEnabledToolKeys((currentKeys) =>
+      isEnabled
+        ? [...currentKeys, toolKey]
+        : currentKeys.filter((key) => key !== toolKey)
+    );
+
+    setTaskError("Could not update tool setting. Please try again.");
+    console.error(error);
+  }
+}
 async function saveBusinessProfile() {
   if (!currentUser) {
     setTaskError("You must be logged in to save your business profile.");
@@ -1055,9 +1122,25 @@ setTaskInput("");
             <p className="mt-2 text-sm text-white/45">{tool.description}</p>
           </div>
 
-          <span className="shrink-0 rounded-full border border-white/10 px-2 py-1 text-[11px] text-white/45">
-            {tool.status}
-          </span>
+          <div className="flex shrink-0 flex-col items-end gap-2">
+  <span className="rounded-full border border-white/10 px-2 py-1 text-[11px] text-white/45">
+    {tool.status === "Coming soon"
+      ? "Coming soon"
+      : enabledToolKeys.includes(tool.key)
+        ? "Enabled"
+        : "Disabled"}
+  </span>
+
+  {tool.status !== "Coming soon" && (
+    <button
+      type="button"
+      onClick={() => toggleUserTool(tool.key, tool.name)}
+      className="rounded-full border border-white/10 px-3 py-1 text-[11px] text-white/50 hover:bg-white/[0.04] hover:text-white"
+    >
+      {enabledToolKeys.includes(tool.key) ? "Disable" : "Enable"}
+    </button>
+  )}
+</div>
         </div>
       </div>
     ))}
